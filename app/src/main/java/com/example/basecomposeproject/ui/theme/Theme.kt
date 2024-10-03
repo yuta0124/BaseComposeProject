@@ -55,3 +55,4 @@ fun BaseComposeProjectTheme(
         content = content
     )
 }
+
