@@ -4,7 +4,6 @@ plugins {
     id("baseComposeProject.primitive.android.compose")
     id("baseComposeProject.primitive.android.hilt")
     id("baseComposeProject.primitive.detekt")
-    // TODO: 本来以下で良いはず
 //    id("baseComposeProject.convention.androidfeature")
 }
 
