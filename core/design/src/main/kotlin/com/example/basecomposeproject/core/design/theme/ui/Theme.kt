@@ -1,4 +1,4 @@
-package com.example.basecomposeproject.core.design.theme
+package com.example.basecomposeproject.core.design.theme.ui
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
