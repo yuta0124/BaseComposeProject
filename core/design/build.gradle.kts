@@ -7,5 +7,5 @@ plugins {
 }
 
 android {
-    namespace = "com.example.design"
+    namespace = "com.example.basecomposeproject.core.design"
 }
