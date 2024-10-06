@@ -28,4 +28,6 @@ include(
     ":core:design",
     ":core:model",
     ":core:data",
+    ":feature",
+    ":feature:search",
 )
