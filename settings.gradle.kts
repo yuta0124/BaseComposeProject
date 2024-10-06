@@ -21,9 +21,11 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "BaseComposeProject"
-include(":app")
-include(":core")
-include(":core:common")
-include(":core:design")
-include(":core:model")
-include(":core:data")
+include(
+    ":app",
+    ":core",
+    ":core:common",
+    ":core:design",
+    ":core:model",
+    ":core:data",
+)
