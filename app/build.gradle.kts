@@ -37,3 +37,7 @@ android {
         }
     }
 }
+
+dependencies {
+    implementation(projects.core.design)
+}

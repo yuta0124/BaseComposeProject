@@ -1,4 +1,4 @@
-package com.example.basecomposeproject.ui.theme
+package com.example.basecomposeproject.core.design.theme.ui
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
