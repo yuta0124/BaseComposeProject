@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,26 +25,29 @@ import dagger.hilt.android.components.ActivityComponent
 fun SearchScreenUi(
     state: UiState,
     modifier: Modifier = Modifier,
-) = Column(
-    modifier = modifier
-        .fillMaxSize()
-        .padding(12.dp)
-) {
-    Text("検索画面")
-    LazyColumn(
-        modifier = Modifier
-            .weight(1f)
-            .fillMaxWidth(),
-        contentPadding = PaddingValues(12.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+) = Scaffold { innerPadding ->
+    Column(
+        modifier = modifier
+            .padding(innerPadding)
+            .fillMaxSize()
+            .padding(12.dp)
     ) {
-        items(state.list) { item ->
-            PokemonItem(
-                item,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-            )
+        Text("検索画面")
+        LazyColumn(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth(),
+            contentPadding = PaddingValues(12.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(state.list) { item ->
+                PokemonItem(
+                    item,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(100.dp)
+                )
+            }
         }
     }
 }
