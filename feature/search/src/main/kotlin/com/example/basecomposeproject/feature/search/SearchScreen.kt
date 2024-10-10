@@ -1,19 +1,19 @@
 package com.example.basecomposeproject.feature.search
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.basecomposeproject.core.design.theme.ui.BaseComposeProjectTheme
+import com.slack.circuit.runtime.CircuitUiEvent
+import com.slack.circuit.runtime.CircuitUiState
+import com.slack.circuit.runtime.screen.Screen
+import kotlinx.parcelize.Parcelize
 
-@Composable
-fun SearchScreen(modifier: Modifier = Modifier) = Column(modifier = modifier) {
-    Text("検索画面")
-}
+@Parcelize
+data object SearchScreen : Screen
 
-@Preview
-@Composable
-private fun SearchScreenPreview() = BaseComposeProjectTheme {
-    SearchScreen()
+data class UiState(
+    val list: List<String>,
+    val eventSink: (Event) -> Unit,
+) : CircuitUiState
+
+sealed interface Event : CircuitUiEvent {
+    data object FetchList : Event
+    data object GoToDetail : Event
 }

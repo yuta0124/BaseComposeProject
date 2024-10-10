@@ -31,3 +31,4 @@ include(
     ":feature",
     ":feature:search",
 )
+include(":feature:di")
