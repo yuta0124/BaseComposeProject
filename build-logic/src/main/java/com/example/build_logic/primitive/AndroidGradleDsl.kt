@@ -3,6 +3,7 @@ package com.example.build_logic.primitive
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.TestedExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import com.google.devtools.ksp.gradle.KspExtension
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import io.gitlab.arturbosch.detekt.report.ReportMergeTask
 import org.gradle.api.JavaVersion
@@ -22,6 +23,10 @@ fun Project.androidLibrary(action: LibraryExtension.() -> Unit) {
 }
 
 fun Project.android(action: TestedExtension.() -> Unit) {
+    extensions.configure(action)
+}
+
+fun Project.ksp(action: KspExtension.() -> Unit) {
     extensions.configure(action)
 }
 

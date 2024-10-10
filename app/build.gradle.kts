@@ -40,4 +40,6 @@ android {
 
 dependencies {
     implementation(projects.core.design)
+    implementation(projects.feature.search)
+    implementation(projects.feature.di)
 }
