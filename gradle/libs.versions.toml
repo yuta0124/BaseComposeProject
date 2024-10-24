@@ -18,6 +18,7 @@ detekt = "1.23.7"
 twitterComposeRule = "0.0.26"
 ktorfit = "2.1.0"
 circuit = "0.24.0"
+dependencyGuard = "0.5.0"
 
 [libraries]
 androidxCoreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -57,6 +58,7 @@ circuit = { module = "com.slack.circuit:circuit-foundation", version.ref = "circ
 circuitAndroid = { module = "com.slack.circuit:circuitx-android", version.ref = "circuit" }
 circuitCodegen = { module = "com.slack.circuit:circuit-codegen", version.ref = "circuit" }
 circuitCodegenAnnotation = { module = "com.slack.circuit:circuit-codegen-annotations", version.ref = "circuit" }
+dependencyGuardPlugin = { module = "com.dropbox.dependency-guard:dependency-guard", version.ref = "dependencyGuard" }
 
 [plugins]
 androidGradlePlugin = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -80,4 +82,5 @@ plugins = [
     "kotlinxSerializationGradlePlugin",
     "detektGradlePlugin",
     "twitterComposeRule",
+    "dependencyGuardPlugin",
 ]
