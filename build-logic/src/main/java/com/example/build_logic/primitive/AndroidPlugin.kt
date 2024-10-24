@@ -17,7 +17,9 @@ class AndroidPlugin : Plugin<Project> {
             }
 
             dependencyGuard {
-                configuration("releaseRuntimeClasspath")
+                configuration("releaseRuntimeClasspath") {
+                    tree = true
+                }
             }
         }
     }
