@@ -3,6 +3,7 @@ package com.example.build_logic.primitive
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.TestedExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import com.dropbox.gradle.plugins.dependencyguard.DependencyGuardPluginExtension
 import com.google.devtools.ksp.gradle.KspExtension
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import io.gitlab.arturbosch.detekt.report.ReportMergeTask
@@ -27,6 +28,10 @@ fun Project.android(action: TestedExtension.() -> Unit) {
 }
 
 fun Project.ksp(action: KspExtension.() -> Unit) {
+    extensions.configure(action)
+}
+
+fun Project.dependencyGuard(action: DependencyGuardPluginExtension.() -> Unit) {
     extensions.configure(action)
 }
 
