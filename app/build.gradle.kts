@@ -8,7 +8,31 @@ plugins {
 }
 
 android {
+    val network = "network"
+
     namespace = "com.example.basecomposeproject"
+
+    flavorDimensions += network
+    buildFeatures {
+        buildConfig = true
+    }
+
+    productFlavors {
+        create("dev") {
+            isDefault = true
+            applicationIdSuffix = ".dev"
+            dimension = network
+            buildConfigField(
+                type = "String",
+                name = "SERVER_URL",
+                value = "\"https://pokeapi.co/api/v2/\"",
+            )
+        }
+        create("prod") {
+            applicationId = ".prod"
+            dimension = network
+        }
+    }
 
     defaultConfig {
         applicationId = "com.example.basecomposeproject"
@@ -29,6 +53,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+        debug {
+            signingConfig = signingConfigs.getByName("debug")
+        }
     }
 
     packaging {
@@ -42,4 +69,6 @@ dependencies {
     implementation(projects.core.design)
     implementation(projects.feature.search)
     implementation(projects.feature.di)
+    implementation(projects.core.data)
+    implementation(projects.core.model)
 }
