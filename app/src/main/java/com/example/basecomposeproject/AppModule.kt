@@ -10,7 +10,6 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-@AppAndroidBuildConfig
 object AppModule {
     @Provides
     @Singleton
