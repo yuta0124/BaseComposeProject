@@ -5,7 +5,6 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
-// TODO: その他の依存関係 
 class KtorfitPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {

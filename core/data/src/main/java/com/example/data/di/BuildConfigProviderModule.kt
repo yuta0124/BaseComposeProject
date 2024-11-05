@@ -30,8 +30,6 @@ object BuildConfigProviderModule {
 @InstallIn(SingletonComponent::class)
 @Module
 abstract class AppAndroidBuildConfigModule {
-    // TODO: 削除: Optionalとして型を扱うことで、利用する側で存在しない場合とする場合で処理を分けられる,
-    //  AppModuleから提供される？
     @BindsOptionalOf
     @AppAndroidBuildConfig
     abstract fun bindBuildConfigProvider(): BuildConfigProvider

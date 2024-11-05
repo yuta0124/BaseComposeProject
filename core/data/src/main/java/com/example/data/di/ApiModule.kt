@@ -16,7 +16,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.HEADERS
 import javax.inject.Singleton
 
-// TODO: ステータスコードを元に独自のエラー型に変える
 @InstallIn(SingletonComponent::class)
 @Module
 object ApiModule {
