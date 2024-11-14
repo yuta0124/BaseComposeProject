@@ -2,6 +2,8 @@ package com.example.data.di
 
 import com.example.data.defaultJson
 import com.example.data.defaultKtorConfig
+import com.example.data.network.pokemon.PokemonApi
+import com.example.data.network.pokemon.createPokemonApi
 import com.example.model.BuildConfigProvider
 import dagger.Module
 import dagger.Provides
@@ -19,6 +21,12 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object ApiModule {
+    @Provides
+    @Singleton
+    fun providePokemonApi(
+        ktorfit: Ktorfit,
+    ): PokemonApi = ktorfit.createPokemonApi()
+
     @Provides
     @Singleton
     fun provideKtorfit(

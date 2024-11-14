@@ -6,3 +6,7 @@ plugins {
 android {
     namespace = "com.example.basecomposeproject.core.model"
 }
+
+dependencies {
+    api(libs.kotlinxCollectionsImmutable)
+}

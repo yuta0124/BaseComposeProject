@@ -10,6 +10,7 @@ class KtorfitPlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("de.jensklingenberg.ktorfit")
+                apply("org.jetbrains.kotlin.plugin.serialization")
                 apply("com.google.devtools.ksp")
             }
 
