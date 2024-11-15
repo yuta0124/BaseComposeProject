@@ -46,6 +46,10 @@ gradlePlugin {
             id = "baseComposeProject.primitive.detekt"
             implementationClass = "com.example.build_logic.primitive.DetektPlugin"
         }
+        register("ktorfit") {
+            id = "baseComposeProject.primitive.ktorfit"
+            implementationClass = "com.example.build_logic.primitive.KtorfitPlugin"
+        }
         register("androidFeature") {
             id = "baseComposeProject.convention.androidfeature"
             implementationClass = "com.example.build_logic.convention.AndroidFeaturePlugin"
