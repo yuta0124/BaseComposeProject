@@ -3,7 +3,6 @@ package com.example.build_logic.primitive
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.dependencies
 
 class AndroidKotlinPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -30,11 +29,6 @@ class AndroidKotlinPlugin : Plugin<Project> {
                     jvmTarget = JavaVersion.VERSION_11.toString()
                 }
             }
-
-//            dependencies {
-//                implementation(libs.library("arrowCore"))
-//                implementation(libs.library("arrowCoroutines"))
-//            }
         }
     }
 }
