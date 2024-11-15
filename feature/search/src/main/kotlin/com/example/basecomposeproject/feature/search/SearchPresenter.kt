@@ -18,7 +18,6 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.android.components.ActivityComponent
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Suppress("UnusedPrivateProperty")
@@ -43,9 +42,7 @@ class SearchPresenter @AssistedInject constructor(
         return UiState(pokemons = list) { event ->
             when (event) {
                 Event.FetchList -> {
-                    // TODO: data層でDispatcherの指定を行う
-                    coroutineScope.launch(Dispatchers.IO) {
-                        // TODO: Either.fold
+                    coroutineScope.launch {
                         runCatching {
                             pokemonRepository.getPokemons(
                                 limit = null,
