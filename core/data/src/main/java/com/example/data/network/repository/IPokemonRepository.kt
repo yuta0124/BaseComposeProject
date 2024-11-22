@@ -1,5 +1,7 @@
 package com.example.data.network.repository
 
+import arrow.core.Either
+import com.example.model.AppError
 import com.example.model.Pokemons
 
 interface IPokemonRepository {
@@ -9,5 +11,5 @@ interface IPokemonRepository {
     suspend fun getPokemons(
         limit: Int?,
         offset: Int?,
-    ): Pokemons
+    ): Either<AppError, Pokemons>
 }

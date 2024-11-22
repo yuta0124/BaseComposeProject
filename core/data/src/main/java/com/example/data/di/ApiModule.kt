@@ -1,5 +1,6 @@
 package com.example.data.di
 
+import com.example.data.EitherConverterFactory
 import com.example.data.defaultJson
 import com.example.data.defaultKtorConfig
 import com.example.data.network.pokemon.PokemonApi
@@ -32,7 +33,11 @@ object ApiModule {
     fun provideKtorfit(
         httpClient: HttpClient,
         serverEnvironment: ServerEnvironmentModule.ServerEnvironment,
-    ): Ktorfit = Ktorfit.Builder().httpClient(httpClient).baseUrl(serverEnvironment.baseUrl).build()
+    ): Ktorfit = Ktorfit
+        .Builder().httpClient(httpClient)
+        .baseUrl(serverEnvironment.baseUrl)
+        .converterFactories(EitherConverterFactory())
+        .build()
 
     @Provides
     @Singleton
