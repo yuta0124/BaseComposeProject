@@ -43,17 +43,19 @@ class SearchPresenter @AssistedInject constructor(
             when (event) {
                 Event.FetchList -> {
                     coroutineScope.launch {
-                        runCatching {
-                            pokemonRepository.getPokemons(
-                                limit = null,
-                                offset = null,
-                            )
-                        }.onSuccess {
-                            list = it.pokemons
-                        }.onFailure {
-                            // TODO: エラーハンドリング
-                            Log.d("test", it.message.toString())
-                        }
+                        pokemonRepository.getPokemons(
+                            limit = null,
+                            offset = null,
+                        ).fold(
+                            ifLeft = { error ->
+                                // TODO: エラーハンドリング
+                                Log.d("test", error.toString())
+                                Log.d("test", error.message.toString())
+                            },
+                            ifRight = { response ->
+                                list = response.pokemons
+                            }
+                        )
                     }
                 }
 
