@@ -37,6 +37,7 @@ class EitherConverterFactory : Converter.Factory {
         typeData: TypeData,
         ktorfit: Ktorfit,
     ): Converter.ResponseConverter<HttpResponse, Either<*, *>>? {
+        // TODO: https://foso.github.io/Ktorfit/converters/migration/ を参考にrunBlocking使わなくてもいけるかも
         /**
          * Params:
          * getResponse - A suspend function that returns the HttpResponse to be converted.
