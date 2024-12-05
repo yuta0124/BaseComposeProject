@@ -31,6 +31,7 @@ class PokemonRepository @Inject constructor(
         offset: Int?
     ): Either<AppError, Pokemons> = withContext(ioDispatcher) {
         pokemonApi.getPokemons(limit, offset).map {
+            // TODO: ここでUIレイヤーが使うデータ構造に変換するのはよくないかも、外側のレイヤーに関心を持つことになるから
             it.toPokemons()
         }.mapLeft {
             it.toAppError()

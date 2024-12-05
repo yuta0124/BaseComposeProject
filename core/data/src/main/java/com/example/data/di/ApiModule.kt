@@ -39,6 +39,7 @@ object ApiModule {
         .converterFactories(EitherConverterFactory())
         .build()
 
+    // TODO: エンジンをAndroidにする？
     @Provides
     @Singleton
     fun provideHttpClient(

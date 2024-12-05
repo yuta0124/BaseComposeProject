@@ -13,5 +13,8 @@ sealed class AppError : RuntimeException {
     }
 
     class UnknownException(cause: Throwable?) : AppError(cause)
-    // TODO: パースを用いる独自エラー定義
+    /**
+     * TODO: パースを用いる独自エラー定義
+     * https://github.com/DroidKaigi/conference-app-2024/blob/main/core/model/src/commonMain/kotlin/io/github/droidkaigi/confsched/model/AppError.kt
+     */
 }
