@@ -44,13 +44,15 @@ xxxScreen#Content が該当
 
 xxxScreen#Screen が該当
 
-## その他
-#### Circuit
-`Circuit`を利用して**MVI**アーキテクチャで実装している。
+## Architecture
+(Rin)[https://github.com/takahirom/Rin]を利用して**MVP**アーキテクチャで実装
 
-##### 実装中に思った疑問点
-- 複数の画面から共有したいPresenterをどう実装するか？
-- ボトムナビゲーションとNavigatorの併用
+#### Rin
+**ViewModelと同等のライフサイクル**をComposition内で扱える様にしている。<br>
+**Configuration change**などを超えて状態を保持する**State Holder**として、ViewModelは必須であり、**Navigation Compose**においては**back stack entry**へ状態を関連付ける上でも必須と言える。
 
-実際の案件でMVIパターンを採用したい場合、特にライブラリ使わずにViewModelを使った簡単なMVIが良いかも
-  参考: https://github.com/myofficework000/JetMVI-Template/blob/master/app/src/main/java/com/abhishek/pathak/kotlin/android/githubcompose/ui/feature/repos/ReposViewModel.kt
+
+
+参考:
+- https://github.com/takahirom/Rin
+- https://zenn.dev/rockname/articles/2a7db5ac4bb516
