@@ -45,7 +45,7 @@ xxxScreen#Content が該当
 xxxScreen#Screen が該当
 
 ## Architecture
-(Rin)[https://github.com/takahirom/Rin]を利用して**MVP**アーキテクチャで実装
+[Rin](https://github.com/takahirom/Rin) を利用して**MVP**アーキテクチャで実装
 
 #### Rin
 **ViewModelと同等のライフサイクル**をComposition内で扱える様にしている。<br>
