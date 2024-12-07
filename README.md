@@ -44,13 +44,16 @@ xxxScreen#Content が該当
 
 xxxScreen#Screen が該当
 
-## その他
+## Architecture
 #### Circuit
 `Circuit`を利用して**MVI**アーキテクチャで実装している。
+
 
 ##### 実装中に思った疑問点
 - 複数の画面から共有したいPresenterをどう実装するか？
 - ボトムナビゲーションとNavigatorの併用
 
 実際の案件でMVIパターンを採用したい場合、特にライブラリ使わずにViewModelを使った簡単なMVIが良いかも
-  参考: https://github.com/myofficework000/JetMVI-Template/blob/master/app/src/main/java/com/abhishek/pathak/kotlin/android/githubcompose/ui/feature/repos/ReposViewModel.kt
+  参考:
+  - https://github.com/myofficework000/JetMVI-Template/blob/master/app/src/main/java/com/abhishek/pathak/kotlin/android/githubcompose/ui/feature/repos/ReposViewModel.kt<br>
+  - https://speakerdeck.com/zacsweers/modern-compose-architecture-with-circuit?slide=107
