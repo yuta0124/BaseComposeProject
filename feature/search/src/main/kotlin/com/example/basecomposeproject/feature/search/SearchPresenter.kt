@@ -1,68 +1,71 @@
 package com.example.basecomposeproject.feature.search
 
-import android.util.Log
+import android.app.Activity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.example.data.network.repository.impl.PokemonRepository
+import androidx.compose.runtime.toMutableStateList
+import androidx.compose.ui.platform.LocalContext
+import com.example.basecomposeproject.core.common.compose.EventEffect
+import com.example.basecomposeproject.core.common.compose.EventFlow
+import com.example.data.network.repository.IPokemonRepository
 import com.example.model.Pokemon
-import com.slack.circuit.codegen.annotations.CircuitInject
-import com.slack.circuit.retained.rememberRetained
-import com.slack.circuit.runtime.Navigator
-import com.slack.circuit.runtime.presenter.Presenter
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
-import dagger.hilt.android.components.ActivityComponent
-import kotlinx.collections.immutable.PersistentList
-import kotlinx.collections.immutable.persistentListOf
-import kotlinx.coroutines.launch
+import dagger.hilt.android.EntryPointAccessors
+import io.github.takahirom.rin.rememberRetained
+import kotlinx.collections.immutable.toPersistentList
 
-@Suppress("UnusedPrivateProperty")
-class SearchPresenter @AssistedInject constructor(
-    @Assisted private val navigator: Navigator,
-    private val pokemonRepository: PokemonRepository,
-) : Presenter<UiState> {
-    @CircuitInject(SearchScreen::class, ActivityComponent::class)
-    @AssistedFactory
-    interface Factory {
-        fun create(navigator: Navigator): SearchPresenter
+private const val LOAD_LIMIT = 20
+
+/**
+ * PresenterのInjectは以下でできそう、@EntryPointでいけそう
+ * 複数のRepositoryに依存する時、ボイラープレートが増えそうなのが懸念点
+ * https://medium.com/androiddevelopers/dependency-injection-in-compose-a2db897e6f11#:~:text=%E3%81%8C%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99%E3%80%82-,%E3%82%A8%E3%83%B3%E3%83%88%E3%83%AA%E3%83%BC%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B,-Hilt%20%E3%81%AF%E3%80%81%20%E3%82%92
+ */
+sealed interface SearchScreenEvent {
+    data object GetPokemons : SearchScreenEvent
+}
+
+@Composable
+fun searchPresenter(
+    events: EventFlow<SearchScreenEvent>,
+): SearchScreenUiState {
+    var isLoading by rememberRetained { mutableStateOf(false) }
+    var pokemons = rememberRetained { mutableStateListOf<Pokemon>() }
+    var offset by rememberRetained { mutableIntStateOf(0) }
+
+    val activity = LocalContext.current as Activity
+    val pokemonRepo = remember {
+        EntryPointAccessors.fromActivity(
+            activity,
+            IPokemonRepository::class.java,
+        )
     }
 
-    @Suppress("MagicNumber")
-    @Composable
-    override fun present(): UiState {
-        val coroutineScope = rememberCoroutineScope()
-        var list: PersistentList<Pokemon> by rememberRetained {
-            mutableStateOf(persistentListOf())
-        }
-
-        return UiState(pokemons = list) { event ->
-            when (event) {
-                Event.FetchList -> {
-                    coroutineScope.launch {
-                        pokemonRepository.getPokemons(
-                            limit = null,
-                            offset = null,
-                        ).fold(
-                            ifLeft = { error ->
-                                // TODO: エラーハンドリング
-                                Log.d("test", error.toString())
-                                Log.d("test", error.message.toString())
-                            },
-                            ifRight = { response ->
-                                list = response.pokemons
-                            }
-                        )
+    EventEffect(events) { event ->
+        when (event) {
+            SearchScreenEvent.GetPokemons -> {
+                isLoading = true
+                pokemonRepo.getPokemons(limit = LOAD_LIMIT, offset = offset).fold(
+                    ifLeft = { _ ->
+                        isLoading = false
+                        // TODO: エラーハンドリング
+                    },
+                    ifRight = { response ->
+                        isLoading = false
+                        pokemons = response.pokemons.toMutableStateList()
                     }
-                }
-
-                Event.GoToDetail -> {
-                    // TODO: 詳細画面に遷移する
-                }
+                )
             }
         }
+    }
+
+    return when {
+        isLoading -> SearchScreenUiState.Loading
+        pokemons.isNotEmpty() -> SearchScreenUiState.Loaded(pokemons.toPersistentList())
+        else -> SearchScreenUiState.Empty
     }
 }

@@ -6,7 +6,7 @@ import kotlinx.collections.immutable.toPersistentList
 data class Pokemons(
     val count: Int,
     val next: String?,
-    val pokemons: PersistentList<Pokemon>,
+    val pokemons: List<Pokemon>,
 )
 
 data class Pokemon(

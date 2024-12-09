@@ -6,6 +6,7 @@ plugins {
     id("baseComposeProject.primitive.android.hilt")
     id("baseComposeProject.primitive.detekt")
     id("baseComposeProject.primitive.ktorfit")
+    id("baseComposeProject.primitive.android.compose")
 }
 
 android {
