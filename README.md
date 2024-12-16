@@ -57,3 +57,4 @@ xxxScreen#Screen が該当
   参考:
   - https://github.com/myofficework000/JetMVI-Template/blob/master/app/src/main/java/com/abhishek/pathak/kotlin/android/githubcompose/ui/feature/repos/ReposViewModel.kt<br>
   - https://speakerdeck.com/zacsweers/modern-compose-architecture-with-circuit?slide=107
+  - https://chrisbanes.me/posts/retaining-beyond-viewmodels/
