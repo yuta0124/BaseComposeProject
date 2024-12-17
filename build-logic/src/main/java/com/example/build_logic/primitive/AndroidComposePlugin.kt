@@ -10,7 +10,6 @@ class AndroidComposePlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("kotlin-parcelize")
-                apply("com.google.devtools.ksp")
                 apply("org.jetbrains.kotlin.plugin.compose")
             }
             android {
@@ -18,10 +17,6 @@ class AndroidComposePlugin : Plugin<Project> {
             }
             composeCompiler {
                 enableStrongSkippingMode.set(true)
-            }
-
-            ksp {
-                arg("circuit.codegen.mode", "hilt")
             }
 
             dependencies {
@@ -35,10 +30,7 @@ class AndroidComposePlugin : Plugin<Project> {
                 implementation(libs.library("composeUiToolingPreview"))
                 implementation(libs.library("androidxLifecycleRuntimeKtx"))
                 implementation(libs.library("androidxActivityCompose"))
-                implementation(libs.library("circuit"))
-                implementation(libs.library("circuitAndroid"))
-                implementation(libs.library("circuitCodegenAnnotation"))
-                ksp(libs.library("circuitCodegen"))
+                implementation(libs.library("rin"))
                 testImplementation(libs.library("junit"))
                 testImplementation(libs.library("androidxJunit"))
                 testImplementation(libs.library("androidxEspressoCore"))

@@ -1,68 +1,63 @@
 package com.example.basecomposeproject.feature.search
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import com.example.data.network.repository.impl.PokemonRepository
+import com.example.basecomposeproject.core.common.compose.EventEffect
+import com.example.basecomposeproject.core.common.compose.EventFlow
+import com.example.data.network.repository.IPokemonRepository
+import com.example.data.network.repository.localPokemonRepository
 import com.example.model.Pokemon
-import com.slack.circuit.codegen.annotations.CircuitInject
-import com.slack.circuit.retained.rememberRetained
-import com.slack.circuit.runtime.Navigator
-import com.slack.circuit.runtime.presenter.Presenter
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
-import dagger.hilt.android.components.ActivityComponent
+import io.github.takahirom.rin.produceRetainedState
+import io.github.takahirom.rin.rememberRetained
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.catch
 
-@Suppress("UnusedPrivateProperty")
-class SearchPresenter @AssistedInject constructor(
-    @Assisted private val navigator: Navigator,
-    private val pokemonRepository: PokemonRepository,
-) : Presenter<UiState> {
-    @CircuitInject(SearchScreen::class, ActivityComponent::class)
-    @AssistedFactory
-    interface Factory {
-        fun create(navigator: Navigator): SearchPresenter
+private const val LOAD_LIMIT = 20
+
+sealed interface SearchScreenEvent {
+    data object GetPokemons : SearchScreenEvent
+}
+
+@Composable
+fun searchPresenter(
+    events: EventFlow<SearchScreenEvent>,
+    pokemonRepository: IPokemonRepository = localPokemonRepository()
+): SearchScreenUiState {
+    var isLoading by rememberRetained { mutableStateOf(true) }
+    var offset by rememberRetained { mutableIntStateOf(0) }
+    // TODO: safeCollectAsRetainedStateが活用できるか？
+    var pokemons = produceRetainedState<PersistentList<Pokemon>>(persistentListOf()) {
+        pokemonRepository
+            .getPokemons(LOAD_LIMIT, offset)
+            .catch {
+                // TODO: エラーハンドリング
+            }
+            .collect {
+                isLoading = false
+                offset = it.pokemons.size
+                value = it.pokemons
+            }
     }
 
-    @Suppress("MagicNumber")
-    @Composable
-    override fun present(): UiState {
-        val coroutineScope = rememberCoroutineScope()
-        var list: PersistentList<Pokemon> by rememberRetained {
-            mutableStateOf(persistentListOf())
-        }
-
-        return UiState(pokemons = list) { event ->
-            when (event) {
-                Event.FetchList -> {
-                    coroutineScope.launch {
-                        pokemonRepository.getPokemons(
-                            limit = null,
-                            offset = null,
-                        ).fold(
-                            ifLeft = { error ->
-                                // TODO: エラーハンドリング
-                                Log.d("test", error.toString())
-                                Log.d("test", error.message.toString())
-                            },
-                            ifRight = { response ->
-                                list = response.pokemons
-                            }
-                        )
-                    }
-                }
-
-                Event.GoToDetail -> {
-                    // TODO: 詳細画面に遷移する
+    EventEffect(events) { event ->
+        when (event) {
+            SearchScreenEvent.GetPokemons -> {
+                isLoading = true
+                // TODO: 呼び出すだけでflowが更新される様にするのが良さそうか？
+                pokemonRepository.getPokemons(limit = LOAD_LIMIT, offset = offset).collect {
+                    // TODO: ライフサイクル大丈夫か？
                 }
             }
         }
+    }
+
+    return when {
+        isLoading -> SearchScreenUiState.Loading
+        pokemons.value.isNotEmpty() -> SearchScreenUiState.Loaded(pokemons.value)
+        else -> SearchScreenUiState.Empty
     }
 }

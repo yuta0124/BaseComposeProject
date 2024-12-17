@@ -1,8 +1,8 @@
 package com.example.data.network.repository
 
-import arrow.core.Either
-import com.example.model.AppError
+import androidx.compose.runtime.Composable
 import com.example.model.Pokemons
+import kotlinx.coroutines.flow.Flow
 
 interface IPokemonRepository {
     /**
@@ -11,5 +11,10 @@ interface IPokemonRepository {
     suspend fun getPokemons(
         limit: Int?,
         offset: Int?,
-    ): Either<AppError, Pokemons>
+    ): Flow<Pokemons>
+}
+
+@Composable
+fun localPokemonRepository(): IPokemonRepository {
+    return LocalRepositories.current[IPokemonRepository::class] as IPokemonRepository
 }
