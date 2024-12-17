@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -33,8 +34,9 @@ fun SearchScreen(
     eventFlow: EventFlow<SearchScreenEvent> = rememberEventFlow(),
     uiState: SearchScreenUiState = searchPresenter(eventFlow),
 ) {
-    // init
-    eventFlow.tryEmit(SearchScreenEvent.GetPokemons)
+    LaunchedEffect(Unit) {
+        eventFlow.tryEmit(SearchScreenEvent.GetPokemons)
+    }
 
     SearchScreen(
         modifier = modifier,

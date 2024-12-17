@@ -1,19 +1,19 @@
 package com.example.basecomposeproject.core.common.compose
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.InternalComposeApi
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.ProvidedValue
 import androidx.compose.runtime.State
-import androidx.compose.runtime.currentComposer
-import androidx.compose.runtime.staticCompositionLocalOf
+import io.github.takahirom.rin.produceRetainedState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
+import kotlin.coroutines.cancellation.CancellationException
 
+@Suppress("TooGenericExceptionCaught")
 @Composable
 fun SafeLaunchedEffect(key: Any?, block: suspend CoroutineScope.() -> Unit) {
     LaunchedEffect(key) {
@@ -29,6 +29,7 @@ fun SafeLaunchedEffect(key: Any?, block: suspend CoroutineScope.() -> Unit) {
     }
 }
 
+@Suppress("TooGenericExceptionCaught")
 @Composable
 fun <T : R, R> Flow<T>.safeCollectAsRetainedState(
     initial: R,
@@ -47,7 +48,7 @@ fun <T : R, R> Flow<T>.safeCollectAsRetainedState(
         } catch (e: CancellationException) {
             throw e
         } catch (e: Throwable) {
-            composeEffectErrorHandler.emit(e)
+            e.printStackTrace()
         }
     }
 }

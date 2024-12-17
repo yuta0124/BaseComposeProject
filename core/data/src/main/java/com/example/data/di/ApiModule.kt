@@ -1,6 +1,5 @@
 package com.example.data.di
 
-import com.example.data.EitherConverterFactory
 import com.example.data.defaultJson
 import com.example.data.defaultKtorConfig
 import com.example.data.network.pokemon.PokemonApi
@@ -11,6 +10,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import de.jensklingenberg.ktorfit.Ktorfit
+import de.jensklingenberg.ktorfit.converter.FlowConverterFactory
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import kotlinx.serialization.json.Json
@@ -36,7 +36,7 @@ object ApiModule {
     ): Ktorfit = Ktorfit
         .Builder().httpClient(httpClient)
         .baseUrl(serverEnvironment.baseUrl)
-        .converterFactories(EitherConverterFactory())
+        .converterFactories(FlowConverterFactory())
         .build()
 
     @Provides

@@ -32,7 +32,7 @@ class AndroidKotlinPlugin : Plugin<Project> {
             }
 
             dependencies {
-                implementation(libs.library("arrowCore"))
+                implementation(libs.library("ktorfitFlowConverter"))
             }
         }
     }
