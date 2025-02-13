@@ -13,6 +13,7 @@ class AndroidHiltPlugin : Plugin<Project> {
             }
             dependencies {
                 implementation(libs.library("daggerHiltAndroid"))
+                implementation(libs.library("hiltNavigationComposePlugin"))
                 ksp(libs.library("daggerHiltAndroidCompiler"))
             }
         }

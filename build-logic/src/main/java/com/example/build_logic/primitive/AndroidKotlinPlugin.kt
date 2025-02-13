@@ -10,6 +10,7 @@ class AndroidKotlinPlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("org.jetbrains.kotlin.android")
+                apply("org.jetbrains.kotlin.plugin.serialization")
             }
             tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java) {
                 kotlinOptions.jvmTarget = "11"
@@ -33,6 +34,7 @@ class AndroidKotlinPlugin : Plugin<Project> {
 
             dependencies {
                 implementation(libs.library("arrowCore"))
+                implementation(libs.library("kotlinSerializationJson"))
             }
         }
     }

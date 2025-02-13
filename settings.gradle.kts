@@ -30,5 +30,4 @@ include(
     ":core:data",
     ":feature",
     ":feature:search",
-    ":feature:di",
 )
