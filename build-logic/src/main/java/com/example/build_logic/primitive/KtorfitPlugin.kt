@@ -2,7 +2,6 @@ package com.example.build_logic.primitive
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
 class KtorfitPlugin : Plugin<Project> {
@@ -10,7 +9,6 @@ class KtorfitPlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("de.jensklingenberg.ktorfit")
-                apply("org.jetbrains.kotlin.plugin.serialization")
                 apply("com.google.devtools.ksp")
             }
 
@@ -20,7 +18,6 @@ class KtorfitPlugin : Plugin<Project> {
                 implementation(libs.library("ktorClientOkHttp"))
                 implementation(libs.library("ktorClientLogging"))
                 implementation(libs.library("okHttpLoggingInterceptor"))
-                implementation(libs.library("kotlinSerializationJson"))
                 implementation(libs.library("ktorContentNegotiation"))
                 implementation(libs.library("ktorKotlinxSerialization"))
             }

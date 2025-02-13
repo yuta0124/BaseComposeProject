@@ -68,7 +68,6 @@ android {
 dependencies {
     implementation(projects.core.design)
     implementation(projects.feature.search)
-    implementation(projects.feature.di)
     implementation(projects.core.data)
     implementation(projects.core.model)
 }
