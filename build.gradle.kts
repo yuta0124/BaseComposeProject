@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlinGradlePlugin) apply false
     alias(libs.plugins.composeCompiler) apply false
     alias(libs.plugins.androidGradleLibraryPlugin) apply false
+    alias(libs.plugins.roborazziGradlePlugin) apply false
 }
 
 buildscript {
