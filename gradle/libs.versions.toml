@@ -23,9 +23,9 @@ okHttp = "4.12.0"
 kotlinxSerialization = "1.7.1"
 dependencyGuard = "0.5.0"
 arrow = "1.2.4"
-roborazzi = "1.26.0"
-robolectric = "4.13"
-composablePreviewScanner = "0.3.0"
+roborazzi = "1.41.0"
+robolectric = "4.14.1"
+composablePreviewScanner = "0.5.1"
 
 [libraries]
 androidxCoreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -79,7 +79,7 @@ navigationCompose = { module = "androidx.navigation:navigation-compose", version
 roborazzi = { module = "io.github.takahirom.roborazzi:roborazzi", version.ref = "roborazzi" }
 roborazziCompose = { module = "io.github.takahirom.roborazzi:roborazzi-compose", version.ref = "roborazzi" }
 roborazziPreviewScannerSupport = { module = "io.github.takahirom.roborazzi:roborazzi-compose-preview-scanner-support", version.ref = "roborazzi" }
-composablePreviewScanner = { module = "com.github.sergio-sastre.ComposablePreviewScanner:android", version.ref = "composablePreviewScanner" }
+composablePreviewScanner = { module = "io.github.sergio-sastre.ComposablePreviewScanner:android", version.ref = "composablePreviewScanner" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidxJunit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
