@@ -77,6 +77,7 @@ navigationCompose = { module = "androidx.navigation:navigation-compose", version
 
 # Test
 roborazzi = { module = "io.github.takahirom.roborazzi:roborazzi", version.ref = "roborazzi" }
+roborazziGradlePlugin = { module = "io.github.takahirom.roborazzi:roborazzi-gradle-plugin", version.ref = "roborazzi" }
 roborazziCompose = { module = "io.github.takahirom.roborazzi:roborazzi-compose", version.ref = "roborazzi" }
 roborazziPreviewScannerSupport = { module = "io.github.takahirom.roborazzi:roborazzi-compose-preview-scanner-support", version.ref = "roborazzi" }
 composablePreviewScanner = { module = "io.github.sergio-sastre.ComposablePreviewScanner:android", version.ref = "composablePreviewScanner" }
@@ -102,6 +103,7 @@ plugins = [
     "androidGradlePlugin",
     "kotlinGradlePlugin",
     "composeCompilerGradlePlugin",
+    "roborazziGradlePlugin",
     "hiltGradlePlugin",
     "kspGradlePlugin",
     "ktorfitGradlePlugin",

@@ -38,6 +38,10 @@ gradlePlugin {
             id = "baseComposeProject.primitive.android.compose"
             implementationClass = "com.example.build_logic.primitive.AndroidComposePlugin"
         }
+        register("roborazzi") {
+            id = "baseComposeProject.primitive.screenshotTestPlugin"
+            implementationClass = "com.example.build_logic.primitive.AndroidRoborazziPlugin"
+        }
         register("androidHilt") {
             id = "baseComposeProject.primitive.android.hilt"
             implementationClass = "com.example.build_logic.primitive.AndroidHiltPlugin"
