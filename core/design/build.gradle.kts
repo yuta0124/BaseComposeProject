@@ -1,5 +1,3 @@
-import com.example.build_logic.primitive.implementation
-
 plugins {
     id("baseComposeProject.primitive.android")
     id("baseComposeProject.primitive.android.kotlin")
@@ -8,10 +6,4 @@ plugins {
     id("baseComposeProject.primitive.detekt")
 }
 
-android {
-    namespace = "com.example.basecomposeproject.core.design"
-
-    dependencies {
-        implementation(projects.core.model)
-    }
-}
+android.namespace = "com.example.basecomposeproject.core.design"
