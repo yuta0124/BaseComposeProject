@@ -48,6 +48,11 @@ xxxScreen#Screen が該当
 #### Circuit
 `Circuit`を利用して**MVI**アーキテクチャで実装している。
 
+## Test
+#### screenshot
+screenshot testにはroborazziを使っている。
+`testging`モジュール内にある`com.github.takahirom.roborazzi`で、右クリックすると出てくる`Run Test in 'com.github...' with Converage`で実行する。
+
 
 ##### 実装中に思った疑問点
 - 複数の画面から共有したいPresenterをどう実装するか？
