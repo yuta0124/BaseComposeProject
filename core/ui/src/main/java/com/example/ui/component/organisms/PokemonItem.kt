@@ -1,4 +1,4 @@
-package com.example.basecomposeproject.core.design.component.organisms
+package com.example.ui.component.organisms
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height

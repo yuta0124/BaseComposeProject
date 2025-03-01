@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -19,11 +21,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.example.basecomposeproject.core.design.component.molecules.CenterCircleIndicator
-import com.example.basecomposeproject.core.design.component.organisms.PokemonItem
 import com.example.basecomposeproject.core.design.theme.ui.BaseComposeProjectTheme
 import com.example.model.Pokemon
 import com.example.model.fakes
+import com.example.ui.component.molecules.CenterCircleIndicator
+import com.example.ui.component.organisms.PokemonItem
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.serialization.Serializable
 
@@ -59,7 +61,13 @@ fun SearchScreen(
     isLoading: Boolean,
     modifier: Modifier = Modifier,
 ) = Scaffold { innerPadding ->
-    if (isLoading) CenterCircleIndicator(modifier = Modifier.padding(innerPadding))
+    if (isLoading) {
+        CenterCircleIndicator(
+            modifier = Modifier.padding(
+                innerPadding
+            )
+        )
+    }
     Column(
         modifier = modifier
             .padding(innerPadding)
@@ -86,10 +94,18 @@ fun SearchScreen(
 
 @Preview
 @Composable
-private fun SearchScreenPreview() = BaseComposeProjectTheme {
+fun SearchScreenPreview() = BaseComposeProjectTheme {
     SearchScreen(
         pokemons = Pokemon.fakes(),
         isLoading = false,
         modifier = Modifier.fillMaxSize(),
     )
+}
+
+@Preview
+@Composable
+fun ScreenshotTestSample() = BaseComposeProjectTheme {
+    Surface(modifier = Modifier.fillMaxSize()) {
+        Text("screenshot sample")
+    }
 }
