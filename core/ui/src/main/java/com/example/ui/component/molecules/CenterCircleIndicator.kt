@@ -1,4 +1,4 @@
-package com.example.basecomposeproject.core.design.component.molecules
+package com.example.ui.component.molecules
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

@@ -9,8 +9,17 @@ plugins {
 
 android {
     val network = "network"
-
     namespace = "com.example.basecomposeproject"
+    defaultConfig {
+        applicationId = "com.example.basecomposeproject"
+        versionCode = 1
+        versionName = "1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+    }
 
     flavorDimensions += network
     buildFeatures {
@@ -31,17 +40,6 @@ android {
         create("prod") {
             applicationId = ".prod"
             dimension = network
-        }
-    }
-
-    defaultConfig {
-        applicationId = "com.example.basecomposeproject"
-        versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
         }
     }
 

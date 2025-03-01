@@ -6,4 +6,11 @@ plugins {
     id("baseComposeProject.primitive.detekt")
 }
 
-android.namespace = "com.example.basecomposeproject.core.design"
+android {
+    namespace = "com.example.basecomposeproject.core.ui"
+
+    dependencies {
+        implementation(projects.core.model)
+        implementation(projects.core.design)
+    }
+}

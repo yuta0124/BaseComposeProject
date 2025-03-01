@@ -8,12 +8,11 @@ plugins {
     id("baseComposeProject.primitive.detekt")
 }
 
-android {
-    namespace = "com.example.basecomposeproject.feature.search"
-}
+android.namespace = "com.example.basecomposeproject.feature.search"
 
 dependencies {
     implementation(projects.core.design)
+    implementation(projects.core.ui)
     implementation(projects.core.common)
     implementation(projects.core.data)
     implementation(projects.core.model)
