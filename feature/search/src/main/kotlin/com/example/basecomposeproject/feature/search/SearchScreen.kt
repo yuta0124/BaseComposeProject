@@ -39,6 +39,7 @@ fun NavGraphBuilder.searchScreen() = composable<Search> {
 
 sealed interface SearchIntent {
     data object Refresh : SearchIntent
+    data class SwitchFavorite(val name: String) : SearchIntent
 }
 
 // TODO: pull to refresh
@@ -53,6 +54,7 @@ fun SearchScreen(
         modifier = modifier.fillMaxSize(),
         pokemons = uiState.pokemons,
         isLoading = uiState.isLoading,
+        onFavoriteClick = viewModel::onAction
     )
 }
 
@@ -60,6 +62,7 @@ fun SearchScreen(
 fun SearchScreen(
     pokemons: PersistentList<Pokemon>,
     isLoading: Boolean,
+    onFavoriteClick: (SearchIntent.SwitchFavorite) -> Unit,
     modifier: Modifier = Modifier,
 ) = Scaffold { innerPadding ->
     if (isLoading) {
@@ -86,7 +89,10 @@ fun SearchScreen(
                     pokemon,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(100.dp)
+                        .height(100.dp),
+                    onFavoriteClick = { name ->
+                        onFavoriteClick(SearchIntent.SwitchFavorite(name))
+                    },
                 )
             }
         }
@@ -99,6 +105,7 @@ fun SearchScreenPreview() = BaseComposeProjectTheme {
     SearchScreen(
         pokemons = Pokemon.fakes(),
         isLoading = false,
+        onFavoriteClick = {},
         modifier = Modifier.fillMaxSize(),
     )
 }
