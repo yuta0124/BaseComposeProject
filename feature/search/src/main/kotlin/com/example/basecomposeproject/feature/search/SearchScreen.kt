@@ -58,6 +58,7 @@ fun SearchScreen(
     )
 }
 
+// TODO: ラムダ修正
 @Composable
 fun SearchScreen(
     pokemons: PersistentList<Pokemon>,

@@ -19,6 +19,17 @@ import com.example.basecomposeproject.core.design.theme.ui.BaseComposeProjectThe
 import com.example.ui.component.molecules.CenterCircleIndicator
 import kotlinx.serialization.Serializable
 
+@Serializable
+data object Favorites
+
+fun NavGraphBuilder.favoritesScreen() = composable<Favorites> {
+    FavoritesScreen()
+}
+
+sealed interface FavoritesIntent {
+    data class SwitchFavorite(val name: String) : FavoritesIntent
+}
+
 @Composable
 fun FavoritesScreen(
     modifier: Modifier = Modifier,
@@ -52,13 +63,6 @@ fun FavoritesScreen(
     ) {
         Text("お気に入り一覧画面")
     }
-}
-
-@Serializable
-data object Favorites
-
-fun NavGraphBuilder.favoritesScreen() = composable<Favorites> {
-    FavoritesScreen()
 }
 
 @Preview

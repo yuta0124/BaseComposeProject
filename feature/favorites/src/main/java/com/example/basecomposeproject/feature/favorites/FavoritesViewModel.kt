@@ -18,4 +18,13 @@ data class UiState(
 class FavoritesViewModel @Inject constructor() : ViewModel() {
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState
+
+    fun onAction(intent: FavoritesIntent) = when (intent) {
+        is FavoritesIntent.SwitchFavorite -> switchFavorite(intent.name)
+    }
+
+    @Suppress("UnusedParameter")
+    private fun switchFavorite(name: String) {
+        // TODO: お気に入り状態切り替え処理
+    }
 }
