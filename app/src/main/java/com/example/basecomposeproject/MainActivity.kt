@@ -7,16 +7,16 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.example.basecomposeproject.core.design.theme.ui.BaseComposeProjectTheme
+import com.example.basecomposeproject.feature.favorites.Favorites
+import com.example.basecomposeproject.feature.favorites.favoritesScreen
 import com.example.basecomposeproject.feature.search.Search
 import com.example.basecomposeproject.feature.search.searchScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,6 +55,7 @@ fun BaseComposeNavHost(
         startDestination = SearchGraph,
     ) {
         searchGraph(Search)
+        favoritesGraph(Favorites)
     }
 }
 
@@ -69,12 +70,13 @@ fun NavGraphBuilder.searchGraph(
     searchScreen()
 }
 
-@Preview
-@Composable
-private fun TestPreview() = BaseComposeProjectTheme {
-    Surface(modifier = Modifier.fillMaxSize()) {
-        Text(
-            text = "test",
-        )
-    }
+@Serializable
+data object FavoritesGraph
+
+fun NavGraphBuilder.favoritesGraph(
+    startDestination: Any,
+) = navigation<FavoritesGraph>(
+    startDestination = startDestination,
+) {
+    favoritesScreen()
 }
