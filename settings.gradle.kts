@@ -33,4 +33,5 @@ include(
     ":core:testing",
     ":feature",
     ":feature:search",
+    ":feature:utils",
 )

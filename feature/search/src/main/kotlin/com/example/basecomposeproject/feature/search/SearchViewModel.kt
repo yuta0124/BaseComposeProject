@@ -4,9 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.network.repository.impl.PokemonRepository
 import com.example.model.Pokemon
+import com.example.utils.toPokemons
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -33,6 +35,10 @@ class SearchViewModel @Inject constructor(
 
     fun onAction(intent: SearchIntent) = when (intent) {
         SearchIntent.Refresh -> refreshPokemons()
+
+        is SearchIntent.SwitchFavorite -> {
+            switchFavorite(intent.name)
+        }
     }
 
     private fun refreshPokemons() {
@@ -47,7 +53,7 @@ class SearchViewModel @Inject constructor(
                 ifRight = { response ->
                     _uiState.update {
                         it.copy(
-                            pokemons = response.pokemons
+                            pokemons = response.toPokemons().pokemons,
                         )
                     }
                 }
@@ -55,5 +61,18 @@ class SearchViewModel @Inject constructor(
                 _uiState.update { it.copy(isLoading = false) }
             }
         }
+    }
+
+    // TODO: Roomにて、お気に入り一覧のデータソースを作成、その一覧の特定の名前を更新する
+    private fun switchFavorite(name: String) {
+        val newPokemons = _uiState.value.pokemons.map { state ->
+            if (state.name == name) {
+                state.copy(isFavorite = !state.isFavorite)
+            } else {
+                state
+            }
+        }.toPersistentList()
+
+        _uiState.update { it.copy(pokemons = newPokemons) }
     }
 }
