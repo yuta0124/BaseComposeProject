@@ -30,18 +30,6 @@ import com.example.ui.component.organisms.PokemonItem
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.serialization.Serializable
 
-@Serializable
-data object Search
-
-fun NavGraphBuilder.searchScreen() = composable<Search> {
-    SearchScreen()
-}
-
-sealed interface SearchIntent {
-    data object Refresh : SearchIntent
-    data class SwitchFavorite(val name: String) : SearchIntent
-}
-
 // TODO: pull to refresh
 @Composable
 fun SearchScreen(
@@ -97,6 +85,18 @@ fun SearchScreen(
             }
         }
     }
+}
+
+@Serializable
+data object Search
+
+fun NavGraphBuilder.searchScreen() = composable<Search> {
+    SearchScreen()
+}
+
+sealed interface SearchIntent {
+    data object Refresh : SearchIntent
+    data class SwitchFavorite(val name: String) : SearchIntent
 }
 
 @Preview
