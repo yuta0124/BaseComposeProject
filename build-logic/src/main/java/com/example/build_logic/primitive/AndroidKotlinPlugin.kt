@@ -11,6 +11,7 @@ class AndroidKotlinPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("org.jetbrains.kotlin.android")
                 apply("org.jetbrains.kotlin.plugin.serialization")
+                apply("com.google.devtools.ksp")
             }
             tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java) {
                 kotlinOptions.jvmTarget = "11"
@@ -34,6 +35,8 @@ class AndroidKotlinPlugin : Plugin<Project> {
 
             dependencies {
                 implementation(libs.library("arrowCore"))
+                implementation(libs.library("arrowOptics"))
+                ksp(libs.library("arrowOpticsKsp"))
                 implementation(libs.library("kotlinSerializationJson"))
             }
         }
