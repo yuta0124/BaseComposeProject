@@ -3,6 +3,7 @@ package com.example.basecomposeproject.feature.search
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -54,7 +55,7 @@ fun SearchScreen(
         modifier = modifier.fillMaxSize(),
         pokemons = uiState.pokemons,
         isLoading = uiState.isLoading,
-        onFavoriteClick = viewModel::onAction
+        onAction = viewModel::onAction,
     )
 }
 
@@ -62,9 +63,9 @@ fun SearchScreen(
 fun SearchScreen(
     pokemons: PersistentList<Pokemon>,
     isLoading: Boolean,
-    onFavoriteClick: (SearchIntent.SwitchFavorite) -> Unit,
+    onAction: (SearchIntent) -> Unit,
     modifier: Modifier = Modifier,
-) = Scaffold { innerPadding ->
+) = Scaffold(contentWindowInsets = WindowInsets(0.dp)) { innerPadding ->
     if (isLoading) {
         CenterCircleIndicator(
             modifier = Modifier.padding(
@@ -75,14 +76,13 @@ fun SearchScreen(
     Column(
         modifier = modifier
             .padding(innerPadding)
-            .padding(12.dp)
+            .fillMaxSize(),
     ) {
         LazyColumn(
             modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth(),
-            contentPadding = PaddingValues(12.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+                .fillMaxSize(),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             items(pokemons) { pokemon ->
                 PokemonItem(
@@ -91,7 +91,7 @@ fun SearchScreen(
                         .fillMaxWidth()
                         .height(100.dp),
                     onFavoriteClick = { name ->
-                        onFavoriteClick(SearchIntent.SwitchFavorite(name))
+                        onAction(SearchIntent.SwitchFavorite(name))
                     },
                 )
             }
@@ -105,7 +105,7 @@ fun SearchScreenPreview() = BaseComposeProjectTheme {
     SearchScreen(
         pokemons = Pokemon.fakes(),
         isLoading = false,
-        onFavoriteClick = {},
+        onAction = {},
         modifier = Modifier.fillMaxSize(),
     )
 }
