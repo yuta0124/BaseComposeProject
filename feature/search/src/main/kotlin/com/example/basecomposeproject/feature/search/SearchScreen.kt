@@ -52,16 +52,15 @@ fun SearchScreen(
         modifier = modifier.fillMaxSize(),
         pokemons = uiState.pokemons,
         isLoading = uiState.isLoading,
-        onFavoriteClick = viewModel::onAction
+        onAction = viewModel::onAction,
     )
 }
 
-// TODO: ラムダ修正
 @Composable
 fun SearchScreen(
     pokemons: PersistentList<Pokemon>,
     isLoading: Boolean,
-    onFavoriteClick: (SearchIntent.SwitchFavorite) -> Unit,
+    onAction: (SearchIntent) -> Unit,
     modifier: Modifier = Modifier,
 ) = Column(
     modifier = modifier
@@ -84,7 +83,7 @@ fun SearchScreen(
                     .fillMaxWidth()
                     .height(100.dp),
                 onFavoriteClick = { name ->
-                    onFavoriteClick(SearchIntent.SwitchFavorite(name))
+                    onAction(SearchIntent.SwitchFavorite(name))
                 },
             )
         }
