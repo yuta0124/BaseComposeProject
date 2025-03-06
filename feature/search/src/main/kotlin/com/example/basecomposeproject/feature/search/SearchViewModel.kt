@@ -3,7 +3,7 @@ package com.example.basecomposeproject.feature.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arrow.optics.optics
-import com.example.data.network.repository.impl.PokemonRepository
+import com.example.data.repository.IPokemonRepository
 import com.example.model.Pokemon
 import com.example.utils.toPokemons
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,7 +27,7 @@ data class UiState(
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val pokemonRepository: PokemonRepository,
+    private val pokemonRepository: IPokemonRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
