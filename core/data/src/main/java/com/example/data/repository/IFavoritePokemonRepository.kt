@@ -1,8 +1,9 @@
 package com.example.data.repository
 
 import com.example.data.database.Pokemon
+import kotlinx.collections.immutable.PersistentList
 
 interface IFavoritePokemonRepository {
-    fun getFavoritePokemons(): List<Pokemon>
-    fun insertFavoritePokemon(pokemon: Pokemon)
+    suspend fun getFavoritePokemons(): PersistentList<Pokemon>
+    suspend fun insertFavoritePokemon(pokemon: Pokemon)
 }

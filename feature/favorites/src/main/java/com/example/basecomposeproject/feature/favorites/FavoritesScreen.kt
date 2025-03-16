@@ -27,9 +27,11 @@ fun NavGraphBuilder.favoritesScreen() = composable<Favorites> {
 }
 
 sealed interface FavoritesIntent {
+    data object Refresh : FavoritesIntent
     data class SwitchFavorite(val name: String) : FavoritesIntent
 }
 
+// TODO: ptr実装
 @Composable
 fun FavoritesScreen(
     modifier: Modifier = Modifier,

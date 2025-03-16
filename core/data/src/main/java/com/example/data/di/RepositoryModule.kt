@@ -1,7 +1,7 @@
 package com.example.data.di
 
-import com.example.basecomposeproject.core.common.network.AppDispatcher
-import com.example.basecomposeproject.core.common.network.AppDispatchers
+import com.example.basecomposeproject.core.common.AppDispatcher
+import com.example.basecomposeproject.core.common.AppDispatchers
 import com.example.data.database.PokemonDao
 import com.example.data.network.pokemon.PokemonApi
 import com.example.data.repository.IFavoritePokemonRepository
@@ -27,6 +27,9 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideFavoritePokemonRepository(pokemonDao: PokemonDao): IFavoritePokemonRepository =
-        FavoritePokemonRepository(pokemonDao)
+    fun provideFavoritePokemonRepository(
+        pokemonDao: PokemonDao,
+        @AppDispatcher(AppDispatchers.IO) ioDispatcher: CoroutineDispatcher,
+    ): IFavoritePokemonRepository =
+        FavoritePokemonRepository(pokemonDao, ioDispatcher)
 }

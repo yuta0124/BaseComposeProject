@@ -1,4 +1,4 @@
-package com.example.basecomposeproject.core.common.network
+package com.example.basecomposeproject.core.common
 
 import javax.inject.Qualifier
 
