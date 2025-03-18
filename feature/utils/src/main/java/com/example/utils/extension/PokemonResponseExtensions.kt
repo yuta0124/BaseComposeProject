@@ -1,4 +1,4 @@
-package com.example.utils
+package com.example.utils.extension
 
 import com.example.data.network.pokemon.response.PokemonsResponse
 import com.example.model.Pokemon

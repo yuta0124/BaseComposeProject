@@ -1,22 +1,29 @@
 package com.example.basecomposeproject.feature.favorites
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.basecomposeproject.core.design.theme.ui.BaseComposeProjectTheme
+import com.example.model.Pokemon
+import com.example.model.fakes
 import com.example.ui.component.molecules.CenterCircleIndicator
+import com.example.ui.component.organisms.PokemonItem
+import kotlinx.collections.immutable.PersistentList
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -27,9 +34,11 @@ fun NavGraphBuilder.favoritesScreen() = composable<Favorites> {
 }
 
 sealed interface FavoritesIntent {
-    data class SwitchFavorite(val name: String) : FavoritesIntent
+    data object Refresh : FavoritesIntent
+    data class SwitchFavorite(val pokemon: Pokemon) : FavoritesIntent
 }
 
+// TODO: ptr実装
 @Composable
 fun FavoritesScreen(
     modifier: Modifier = Modifier,
@@ -38,15 +47,19 @@ fun FavoritesScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     FavoritesScreen(
+        pokemons = uiState.pokemons,
         isLoading = uiState.isLoading,
+        onAction = viewModel::onAction,
         modifier = modifier.fillMaxSize(),
     )
 }
 
 @Composable
 fun FavoritesScreen(
+    pokemons: PersistentList<Pokemon>,
     isLoading: Boolean,
-    modifier: Modifier = Modifier
+    onAction: (FavoritesIntent) -> Unit,
+    modifier: Modifier = Modifier,
 ) = Scaffold(modifier = modifier) { innerPadding ->
     if (isLoading) {
         CenterCircleIndicator(
@@ -56,12 +69,24 @@ fun FavoritesScreen(
         )
     }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+    LazyColumn(
+        modifier = Modifier
+            .padding(innerPadding)
+            .fillMaxSize(),
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Text("お気に入り一覧画面")
+        items(pokemons) { pokemon ->
+            PokemonItem(
+                pokemon,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp),
+                onFavoriteClick = { pokemon ->
+                    onAction(FavoritesIntent.SwitchFavorite(pokemon))
+                },
+            )
+        }
     }
 }
 
@@ -69,6 +94,8 @@ fun FavoritesScreen(
 @Composable
 fun FavoritesScreenPreview() = BaseComposeProjectTheme {
     FavoritesScreen(
+        pokemons = Pokemon.fakes(),
         isLoading = false,
+        onAction = {},
     )
 }

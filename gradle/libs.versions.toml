@@ -26,6 +26,7 @@ arrow = "1.2.4"
 roborazzi = "1.41.0"
 robolectric = "4.14.1"
 composablePreviewScanner = "0.5.1"
+room = "2.6.1"
 
 [libraries]
 androidxCoreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -69,6 +70,9 @@ ktorClientOkHttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor"
 ktorContentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktorKotlinxSerialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 okHttpLoggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okHttp" }
+roomKtx = { module = "androidx.room:room-ktx", version.ref = "room" }
+roomRuntime = { module = "androidx.room:room-runtime", version.ref = "room" }
+roomCompiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 
 # Architecture
 kotlinxSerializationGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }

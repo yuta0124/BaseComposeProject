@@ -1,7 +1,7 @@
-package com.example.basecomposeproject.core.common.network.di
+package com.example.basecomposeproject.core.common.di
 
-import com.example.basecomposeproject.core.common.network.AppDispatcher
-import com.example.basecomposeproject.core.common.network.AppDispatchers
+import com.example.basecomposeproject.core.common.AppDispatcher
+import com.example.basecomposeproject.core.common.AppDispatchers
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

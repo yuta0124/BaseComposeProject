@@ -40,7 +40,7 @@ fun NavGraphBuilder.searchScreen() = composable<Search> {
 
 sealed interface SearchIntent {
     data object Refresh : SearchIntent
-    data class SwitchFavorite(val name: String) : SearchIntent
+    data class SwitchFavorite(val pokemon: Pokemon) : SearchIntent
 }
 
 // TODO: pull to refresh
@@ -65,7 +65,10 @@ fun SearchScreen(
     isLoading: Boolean,
     onAction: (SearchIntent) -> Unit,
     modifier: Modifier = Modifier,
-) = Scaffold(contentWindowInsets = WindowInsets(0.dp)) { innerPadding ->
+) = Scaffold(
+    modifier = modifier,
+    contentWindowInsets = WindowInsets(0.dp),
+) { innerPadding ->
     if (isLoading) {
         CenterCircleIndicator(
             modifier = Modifier.padding(
@@ -73,28 +76,23 @@ fun SearchScreen(
             )
         )
     }
-    Column(
-        modifier = modifier
+    LazyColumn(
+        modifier = Modifier
             .padding(innerPadding)
             .fillMaxSize(),
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            items(pokemons) { pokemon ->
-                PokemonItem(
-                    pokemon,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(100.dp),
-                    onFavoriteClick = { name ->
-                        onAction(SearchIntent.SwitchFavorite(name))
-                    },
-                )
-            }
+        items(pokemons) { pokemon ->
+            PokemonItem(
+                pokemon,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp),
+                onFavoriteClick = { name ->
+                    onAction(SearchIntent.SwitchFavorite(name))
+                },
+            )
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.data.network.repository
+package com.example.data.repository
 
 import arrow.core.Either
 import com.example.data.network.pokemon.response.PokemonsResponse
