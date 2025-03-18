@@ -6,9 +6,9 @@ import androidx.room.Query
 
 @Dao
 interface PokemonDao {
-    @Query("SELECT * FROM pokemon")
-    suspend fun getFavoritePokemons(): List<Pokemon>
+    @Query("SELECT * FROM pokemontable")
+    suspend fun getFavoritePokemons(): List<PokemonTable>
 
     @Insert
-    suspend fun insertFavoritePokemon(pokemon: Pokemon)
+    suspend fun insertFavoritePokemon(pokemon: PokemonTable)
 }

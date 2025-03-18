@@ -3,9 +3,12 @@ package com.example.basecomposeproject.feature.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arrow.optics.optics
+import com.example.data.database.PokemonTable
+import com.example.data.repository.IFavoritePokemonRepository
 import com.example.data.repository.IPokemonRepository
 import com.example.model.Pokemon
-import com.example.utils.toPokemons
+import com.example.utils.extension.toPokemonTable
+import com.example.utils.extension.toPokemons
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
@@ -28,6 +31,7 @@ data class UiState(
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val pokemonRepository: IPokemonRepository,
+    private val favoritePokemonRepository: IFavoritePokemonRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
@@ -40,17 +44,18 @@ class SearchViewModel @Inject constructor(
         SearchIntent.Refresh -> refreshPokemons()
 
         is SearchIntent.SwitchFavorite -> {
-            switchFavorite(intent.name)
+            switchFavorite(intent.pokemon)
         }
     }
 
+    // TODO: ローカルのお気に入り一覧にあるアイテムはお気に入り状態にする
     private fun refreshPokemons() {
         viewModelScope.launch {
             pokemonRepository.getPokemons(
                 limit = null,
                 offset = null,
             ).fold(
-                ifLeft = { error ->
+                ifLeft = { _ ->
                     // TODO: エラーハンドリング
                 },
                 ifRight = { response ->
@@ -64,16 +69,21 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    // TODO: Roomにて、お気に入り一覧のデータソースを作成、その一覧の特定の名前を更新する
-    private fun switchFavorite(name: String) {
+    private fun switchFavorite(pokemon: Pokemon) {
+        insertPokemonInDatabase(pokemon.toPokemonTable())
         val newPokemons = _uiState.value.pokemons.map { state ->
-            if (state.name == name) {
+            if (state.name == pokemon.name) {
                 state.copy(isFavorite = !state.isFavorite)
             } else {
                 state
             }
         }.toPersistentList()
-
         _uiState.update { UiState.pokemons.modify(it) { newPokemons } }
+    }
+
+    private fun insertPokemonInDatabase(pokemon: PokemonTable) {
+        viewModelScope.launch {
+            favoritePokemonRepository.insertFavoritePokemon(pokemon)
+        }
     }
 }

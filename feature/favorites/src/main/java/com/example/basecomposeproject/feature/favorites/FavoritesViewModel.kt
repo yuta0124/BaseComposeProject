@@ -4,11 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arrow.optics.optics
 import com.example.basecomposeproject.core.common.opticsCompose
-import com.example.data.database.Pokemon
+import com.example.data.database.PokemonTable
 import com.example.data.repository.IFavoritePokemonRepository
+import com.example.model.Pokemon
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -36,12 +38,14 @@ class FavoritesViewModel @Inject constructor(
 
     fun onAction(intent: FavoritesIntent) = when (intent) {
         FavoritesIntent.Refresh -> fetchFavoritePokemons()
-        is FavoritesIntent.SwitchFavorite -> switchFavorite(intent.name)
+        is FavoritesIntent.SwitchFavorite -> switchFavorite(intent.pokemon)
     }
 
     private fun fetchFavoritePokemons() {
         viewModelScope.launch {
-            val result: PersistentList<Pokemon> = favoritePokemonRepository.getFavoritePokemons()
+            val result: PersistentList<Pokemon> =
+                favoritePokemonRepository.getFavoritePokemons().map(PokemonTable::toPokemon)
+                    .toPersistentList()
 
             _uiState.update { state ->
                 opticsCompose(
@@ -54,7 +58,7 @@ class FavoritesViewModel @Inject constructor(
     }
 
     @Suppress("UnusedParameter")
-    private fun switchFavorite(name: String) {
+    private fun switchFavorite(pokemon: Pokemon) {
         // TODO: お気に入り状態切り替え処理
     }
 }

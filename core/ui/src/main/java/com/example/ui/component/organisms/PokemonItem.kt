@@ -26,7 +26,7 @@ import com.example.ui.component.atoms.SwitchIconButton
 fun PokemonItem(
     pokemon: Pokemon,
     modifier: Modifier = Modifier,
-    onFavoriteClick: (String) -> Unit,
+    onFavoriteClick: (Pokemon) -> Unit,
 ) = Card(modifier = modifier) {
     Column(
         modifier = Modifier
@@ -44,7 +44,7 @@ fun PokemonItem(
                 iconVectorOn = Icons.Default.Favorite,
                 iconVectorOff = Icons.Default.FavoriteBorder,
                 isOn = pokemon.isFavorite,
-                onClick = { onFavoriteClick(pokemon.name) },
+                onClick = { onFavoriteClick(pokemon) },
             )
         }
     }
