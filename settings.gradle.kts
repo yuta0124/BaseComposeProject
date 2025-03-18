@@ -36,3 +36,4 @@ include(
     ":feature:favorites",
     ":feature:utils",
 )
+include(":ui-catalog")
