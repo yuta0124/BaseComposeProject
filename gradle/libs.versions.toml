@@ -27,6 +27,7 @@ roborazzi = "1.41.0"
 robolectric = "4.14.1"
 composablePreviewScanner = "0.5.1"
 room = "2.6.1"
+coil = "3.1.0"
 
 [libraries]
 androidxCoreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -45,20 +46,11 @@ androidxAppcompat = { group = "androidx.appcompat", name = "appcompat", version.
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 composeCompilerGradlePlugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin" }
 javaPoet = { module = "com.squareup:javapoet", version = "1.13.0" }
-arrowCore = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
-arrowOptics = { module = "io.arrow-kt:arrow-optics", version.ref = "arrow" }
-arrowOpticsKsp = { module = "io.arrow-kt:arrow-optics-ksp-plugin", version.ref = "arrow" }
 
 androidGradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlinGradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 androidDesugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
-hiltGradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "dagger" }
-hiltNavigationComposePlugin = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "daggerHiltNavigationCompose" }
 kspGradlePlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
-detektGradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
-detektFormatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
-twitterComposeRule = { module = "com.twitter.compose.rules:detekt", version.ref = "twitterComposeRule" }
-kotlinxCollectionsImmutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version = "0.3.5" }
 
 # data
 kotlinSerializationJson = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
@@ -80,6 +72,17 @@ daggerHiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "
 daggerHiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger" }
 dependencyGuardPlugin = { module = "com.dropbox.dependency-guard:dependency-guard", version.ref = "dependencyGuard" }
 navigationCompose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+arrowCore = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
+arrowOptics = { module = "io.arrow-kt:arrow-optics", version.ref = "arrow" }
+arrowOpticsKsp = { module = "io.arrow-kt:arrow-optics-ksp-plugin", version.ref = "arrow" }
+detektGradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
+detektFormatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
+twitterComposeRule = { module = "com.twitter.compose.rules:detekt", version.ref = "twitterComposeRule" }
+kotlinxCollectionsImmutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version = "0.3.5" }
+hiltGradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "dagger" }
+hiltNavigationComposePlugin = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "daggerHiltNavigationCompose" }
+coilKt = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
+coilNetworkHttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
 
 # Test
 roborazzi = { module = "io.github.takahirom.roborazzi:roborazzi", version.ref = "roborazzi" }
