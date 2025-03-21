@@ -1,21 +1,17 @@
 package com.example.basecomposeproject.feature.search
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -76,19 +72,20 @@ fun SearchScreen(
             )
         )
     }
-    LazyColumn(
+    LazyVerticalGrid(
         modifier = Modifier
             .padding(innerPadding)
             .fillMaxSize(),
+        columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        items(pokemons) { pokemon ->
+        items(pokemons) {
             PokemonItem(
-                pokemon,
+                it,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(100.dp),
+                    .aspectRatio(1f),
                 onFavoriteClick = { name ->
                     onAction(SearchIntent.SwitchFavorite(name))
                 },
@@ -106,18 +103,4 @@ fun SearchScreenPreview() = BaseComposeProjectTheme {
         onAction = {},
         modifier = Modifier.fillMaxSize(),
     )
-}
-
-@Preview
-@Composable
-fun ScreenshotTestSample() = BaseComposeProjectTheme {
-    Surface(modifier = Modifier.fillMaxSize()) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text("screenshot sample")
-            Text("screenshot sample")
-        }
-    }
 }
