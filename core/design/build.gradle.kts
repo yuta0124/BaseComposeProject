@@ -9,6 +9,6 @@ plugins {
 android.namespace = "com.example.basecomposeproject.core.design"
 
 dependencies {
-    api(libs.coilKt)
+    api(libs.coilCompose)
     api(libs.coilNetworkHttp)
 }
