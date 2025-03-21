@@ -1,8 +1,7 @@
 package com.example.ui.component.organisms
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.example.basecomposeproject.core.design.theme.ui.BaseComposeProjectTheme
 import com.example.model.Pokemon
 import com.example.ui.component.atoms.SwitchIconButton
@@ -34,17 +34,23 @@ fun PokemonItem(
             .padding(horizontal = 12.dp)
             .padding(bottom = 12.dp),
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(text = pokemon.name)
-            Spacer(modifier = Modifier.weight(1f))
+        Box(modifier = Modifier.fillMaxSize()) {
+            AsyncImage(
+                modifier = Modifier
+                    .fillMaxSize(),
+                model = pokemon.url,
+                contentDescription = null,
+            )
             SwitchIconButton(
+                modifier = Modifier.align(Alignment.TopEnd),
                 iconVectorOn = Icons.Default.Favorite,
                 iconVectorOff = Icons.Default.FavoriteBorder,
                 isOn = pokemon.isFavorite,
                 onClick = { onFavoriteClick(pokemon) },
+            )
+            Text(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                text = pokemon.name,
             )
         }
     }
