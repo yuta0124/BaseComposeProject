@@ -7,6 +7,7 @@ import com.example.basecomposeproject.core.common.opticsCompose
 import com.example.data.database.PokemonTable
 import com.example.data.repository.IFavoritePokemonRepository
 import com.example.model.Pokemon
+import com.example.utils.extension.toPokemon
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf

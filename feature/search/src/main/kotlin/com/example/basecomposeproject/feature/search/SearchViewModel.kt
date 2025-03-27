@@ -7,6 +7,7 @@ import com.example.data.database.PokemonTable
 import com.example.data.repository.IFavoritePokemonRepository
 import com.example.data.repository.IPokemonRepository
 import com.example.model.Pokemon
+import com.example.utils.extension.toPokemon
 import com.example.utils.extension.toPokemonTable
 import com.example.utils.extension.toPokemons
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,8 +37,18 @@ class SearchViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
+    private var favoritePokemonNames: PersistentList<String> = persistentListOf()
+
     init {
-        refreshPokemons()
+        viewModelScope.launch {
+            favoritePokemonNames =
+                favoritePokemonRepository.getFavoritePokemons()
+                    .map(PokemonTable::toPokemon)
+                    .map { it.name }
+                    .toPersistentList()
+
+            fetchPokemons()
+        }
     }
 
     fun onAction(intent: SearchIntent) = when (intent) {
@@ -48,24 +59,34 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    // TODO: ローカルのお気に入り一覧にあるアイテムはお気に入り状態にする
-    private fun refreshPokemons() {
-        viewModelScope.launch {
-            pokemonRepository.getPokemons(
-                limit = null,
-                offset = null,
-            ).fold(
-                ifLeft = { _ ->
-                    // TODO: エラーハンドリング
-                },
-                ifRight = { response ->
-                    _uiState.update { UiState.pokemons.modify(it) { response.toPokemons().pokemons } }
-                }
-            ).run {
-                _uiState.update {
-                    UiState.isLoading.modify(it) { false }
+    private suspend fun fetchPokemons(limit: Int? = null, offset: Int? = null) {
+        pokemonRepository.getPokemons(
+            limit = limit,
+            offset = offset,
+        ).fold(
+            ifLeft = { _ ->
+                // TODO: エラーハンドリング
+            },
+            ifRight = { response ->
+                _uiState.update { state ->
+                    val pokemons = response.toPokemons().pokemons.map { pokemon ->
+                        pokemon.copy(isFavorite = favoritePokemonNames.contains(pokemon.name))
+                    }
+
+                    UiState.pokemons.modify(state) { state.pokemons.addAll(pokemons) }
                 }
             }
+        ).run {
+            _uiState.update {
+                UiState.isLoading.modify(it) { false }
+            }
+        }
+    }
+
+    private fun refreshPokemons() {
+        viewModelScope.launch {
+            // TODO: limit, offsetの指定
+            fetchPokemons()
         }
     }
 
