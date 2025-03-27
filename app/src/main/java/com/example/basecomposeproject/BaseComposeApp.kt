@@ -6,7 +6,6 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -31,10 +30,7 @@ import kotlinx.serialization.Serializable
 
 @Composable
 fun BaseComposeApp(modifier: Modifier = Modifier) = BaseComposeProjectTheme {
-    Surface(
-        modifier = modifier,
-        color = MaterialTheme.colorScheme.background
-    ) {
+    Surface(modifier = modifier) {
         BaseComposeNavHost()
     }
 }
