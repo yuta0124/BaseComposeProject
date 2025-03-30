@@ -1,4 +1,4 @@
-package com.example.basecomposeproject.feature.favorites
+package com.example.utils.extension
 
 import com.example.data.database.PokemonTable
 import com.example.model.Pokemon
