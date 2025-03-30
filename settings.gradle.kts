@@ -35,5 +35,5 @@ include(
     ":feature:search",
     ":feature:favorites",
     ":feature:utils",
+    ":ui-catalog",
 )
-include(":ui-catalog")
