@@ -4,10 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arrow.optics.optics
 import com.example.basecomposeproject.core.common.opticsCompose
+import com.example.basecomposeproject.feature.favorites.FavoritesIntent.DeleteFavoritePokemon
+import com.example.basecomposeproject.feature.favorites.FavoritesIntent.GetFavoritePokemons
 import com.example.data.database.PokemonTable
 import com.example.data.repository.IFavoritePokemonRepository
 import com.example.model.Pokemon
 import com.example.utils.extension.toPokemon
+import com.example.utils.extension.toPokemonTable
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
@@ -38,8 +41,8 @@ class FavoritesViewModel @Inject constructor(
     }
 
     fun onAction(intent: FavoritesIntent) = when (intent) {
-        FavoritesIntent.Refresh -> fetchFavoritePokemons()
-        is FavoritesIntent.SwitchFavorite -> switchFavorite(intent.pokemon)
+        GetFavoritePokemons -> fetchFavoritePokemons()
+        is DeleteFavoritePokemon -> deletePokemonInDB(intent.pokemon)
     }
 
     private fun fetchFavoritePokemons() {
@@ -58,8 +61,10 @@ class FavoritesViewModel @Inject constructor(
         }
     }
 
-    @Suppress("UnusedParameter")
-    private fun switchFavorite(pokemon: Pokemon) {
-        // TODO: お気に入り状態切り替え処理
+    private fun deletePokemonInDB(pokemon: Pokemon) {
+        viewModelScope.launch {
+            favoritePokemonRepository.deleteFvoritePokemon(pokemon.toPokemonTable())
+            fetchFavoritePokemons()
+        }
     }
 }

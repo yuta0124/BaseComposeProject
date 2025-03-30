@@ -18,6 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -37,6 +39,7 @@ fun NavGraphBuilder.searchScreen() = composable<Search> {
 }
 
 sealed interface SearchIntent {
+    data object Resume : SearchIntent
     data object Refresh : SearchIntent
     data class SwitchFavorite(val pokemon: Pokemon) : SearchIntent
 }
@@ -48,6 +51,10 @@ fun SearchScreen(
     viewModel: SearchViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        viewModel.onAction(SearchIntent.Resume)
+    }
 
     SearchScreen(
         modifier = modifier.fillMaxSize(),
