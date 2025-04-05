@@ -18,6 +18,7 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.feature.search)
     implementation(projects.feature.favorites)
+    implementation(projects.feature.detail)
 }
 
 /**
