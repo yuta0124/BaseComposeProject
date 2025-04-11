@@ -2,7 +2,6 @@ package com.example.basecomposeproject.feature.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import arrow.optics.optics
 import com.example.basecomposeproject.feature.search.SearchIntent.Refresh
 import com.example.basecomposeproject.feature.search.SearchIntent.Resume
 import com.example.basecomposeproject.feature.search.SearchIntent.SwitchFavorite
@@ -13,7 +12,6 @@ import com.example.model.Pokemon
 import com.example.utils.extension.toPokemonTable
 import com.example.utils.extension.toPokemons
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,14 +21,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-@optics
-data class UiState(
-    val pokemons: PersistentList<Pokemon> = persistentListOf(),
-    val isLoading: Boolean = true,
-) {
-    companion object
-}
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(

@@ -1,5 +1,6 @@
 package com.example.ui.component.organisms
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,9 +26,14 @@ import com.example.ui.component.atoms.SwitchIconButton
 @Composable
 fun PokemonItem(
     pokemon: Pokemon,
-    modifier: Modifier = Modifier,
     onFavoriteClick: (Pokemon) -> Unit,
-) = Card(modifier = modifier) {
+    onClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) = Card(
+    modifier = modifier.clickable {
+        onClick(pokemon.name)
+    }
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -69,5 +75,6 @@ private fun PokemonItemPreview() = BaseComposeProjectTheme {
             isFavorite = false,
         ),
         onFavoriteClick = {},
+        onClick = {},
     )
 }

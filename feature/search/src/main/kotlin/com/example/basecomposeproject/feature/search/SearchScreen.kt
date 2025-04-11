@@ -21,37 +21,21 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
 import com.example.basecomposeproject.core.design.theme.ui.BaseComposeProjectTheme
 import com.example.model.Pokemon
 import com.example.model.fakes
 import com.example.ui.component.molecules.CenterCircleIndicator
 import com.example.ui.component.organisms.PokemonItem
 import kotlinx.collections.immutable.PersistentList
-import kotlinx.serialization.Serializable
-
-@Serializable
-data object Search
-
-fun NavGraphBuilder.searchScreen() = composable<Search> {
-    SearchScreen()
-}
-
-sealed interface SearchIntent {
-    data object Resume : SearchIntent
-    data object Refresh : SearchIntent
-    data class SwitchFavorite(val pokemon: Pokemon) : SearchIntent
-}
 
 // TODO: pull to refresh
 @Composable
 fun SearchScreen(
+    navigateToDetail: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SearchViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
         viewModel.onAction(SearchIntent.Resume)
     }
@@ -61,6 +45,7 @@ fun SearchScreen(
         pokemons = uiState.pokemons,
         isLoading = uiState.isLoading,
         onAction = viewModel::onAction,
+        navigateToDetail = navigateToDetail,
     )
 }
 
@@ -69,6 +54,7 @@ fun SearchScreen(
     pokemons: PersistentList<Pokemon>,
     isLoading: Boolean,
     onAction: (SearchIntent) -> Unit,
+    navigateToDetail: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) = Scaffold(
     modifier = modifier,
@@ -98,6 +84,7 @@ fun SearchScreen(
                 onFavoriteClick = { name ->
                     onAction(SearchIntent.SwitchFavorite(name))
                 },
+                onClick = navigateToDetail,
             )
         }
     }
@@ -107,9 +94,10 @@ fun SearchScreen(
 @Composable
 fun SearchScreenPreview() = BaseComposeProjectTheme {
     SearchScreen(
+        modifier = Modifier.fillMaxSize(),
         pokemons = Pokemon.fakes(),
         isLoading = false,
         onAction = {},
-        modifier = Modifier.fillMaxSize(),
+        navigateToDetail = {},
     )
 }
