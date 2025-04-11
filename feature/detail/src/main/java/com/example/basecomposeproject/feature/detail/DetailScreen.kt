@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
@@ -42,4 +43,13 @@ fun DetailScreen(
             Text(text = name)
         }
     }
+}
+
+@Preview
+@Composable
+fun DetailScreenPreview() {
+    DetailScreen(
+        name = "detail screen",
+        modifier = Modifier.fillMaxSize()
+    )
 }
