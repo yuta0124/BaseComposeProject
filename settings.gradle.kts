@@ -34,6 +34,7 @@ include(
     ":feature",
     ":feature:search",
     ":feature:favorites",
+    ":feature:detail",
     ":feature:utils",
     ":ui-catalog",
 )

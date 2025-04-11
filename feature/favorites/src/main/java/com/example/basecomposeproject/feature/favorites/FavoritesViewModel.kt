@@ -2,7 +2,6 @@ package com.example.basecomposeproject.feature.favorites
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import arrow.optics.optics
 import com.example.basecomposeproject.core.common.opticsCompose
 import com.example.basecomposeproject.feature.favorites.FavoritesIntent.DeleteFavoritePokemon
 import com.example.basecomposeproject.feature.favorites.FavoritesIntent.GetFavoritePokemons
@@ -13,21 +12,12 @@ import com.example.utils.extension.toPokemon
 import com.example.utils.extension.toPokemonTable
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.PersistentList
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-@optics
-data class UiState(
-    val isLoading: Boolean = true,
-    val pokemons: PersistentList<Pokemon> = persistentListOf(),
-) {
-    companion object
-}
 
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(

@@ -69,4 +69,5 @@ dependencies {
     implementation(projects.core.model)
     implementation(projects.feature.search)
     implementation(projects.feature.favorites)
+    implementation(projects.feature.detail)
 }
