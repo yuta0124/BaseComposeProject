@@ -48,9 +48,8 @@ roborazzi {
     @OptIn(ExperimentalRoborazziApi::class)
     generateComposePreviewRobolectricTests {
         enable = true
-
+        // デフォルトのTesterの方がログ出力が優れているため、特に理由がなければカスタムTester使わなくて良い
         testerQualifiedClassName = "com.example.testing.BaseComposePreviewTester"
-
         packages = listOf("com.example.basecomposeproject")
     }
 }
