@@ -24,6 +24,8 @@ data class test(
     val isFavorite: Boolean,
 )
 
+
+
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
     private val favoritePokemonRepository: IFavoritePokemonRepository,

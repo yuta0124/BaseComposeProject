@@ -1,6 +1,5 @@
 name: CI
-# TODO: detektのエラー内容がPRのコメントで表示されるか確認
-# TODO: CIが失敗した時にマージできないようになっているか確認
+
 on:
   push:
     branches:
@@ -37,8 +36,6 @@ jobs:
         run: ./gradlew assembleDebug
 
   detekt:
-    permissions:
-      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
