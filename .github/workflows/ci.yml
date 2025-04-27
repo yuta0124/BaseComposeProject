@@ -1,0 +1,81 @@
+name: CI
+
+# todo: pushの時にdetektを走らせる
+# todo: Pushの時にComposableが編集されていればscreenshottestをはしらせる
+
+# on: どのタイミングでワークフローを走らせるか
+# pushされた時 && architecture_mvi の場合にワークフローを走らせる
+# 新しくPRが作成された時 && architecture_mvi の場合にワークフローを走らせる
+# TODO: on: [push, pull_request]って書けそう
+on:
+  push:
+    branches:
+      - architecture_mvi
+    paths-ignore:
+      - README.md
+  pull_request:
+    branches:
+      - architecture_mvi
+    paths-ignore:
+      - README.md
+
+# 連続Push時に前のジョブをキャンセルする
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    # ジョブを実行するOS(ランナー)を指定。(ubuntu-latest: ubuntuの最新版)
+    runs-on: ubuntu-latest
+    steps:
+      # リポジトリーのブランチをランナー内にクローン(厳密にはクローンではない)する
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ランナー内にJDKをセットアップ
+      - name: set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'zulu'
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      # 依存関係の出力
+      - name: Displays the Android dependencies of the project
+        run: ./gradlew androidDependencies
+
+      # コンパイル
+      - name: Run Compile
+        run: ./gradlew assembleDebug
+
+  detekt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'zulu'
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Setup reviewdog
+        uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+
+      - name: detekt
+        run: ./gradlew detekt
+
+      - name: reviewdog report
+        if: failure()
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: cat ./build/reports/detekt/detekt.xml |
+          reviewdog -f=checkstyle -name="detekt" -reporter="github-pr-review"
