@@ -6,10 +6,13 @@ import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.dropbox.gradle.plugins.dependencyguard.DependencyGuardPluginExtension
 import com.google.devtools.ksp.gradle.KspExtension
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
+import io.gitlab.arturbosch.detekt.report.ReportMergeTask
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.withType
 
 fun Project.androidApplication(action: BaseAppModuleExtension.() -> Unit) {
@@ -80,26 +83,28 @@ fun Project.setupDetekt(extension: DetektExtension) {
         autoCorrect = true
     }
 
+    val reportMerge = if (!rootProject.tasks.names.contains("reportMerge")) {
+        rootProject.tasks.register("reportMerge", ReportMergeTask::class) {
+            output.set(rootProject.layout.buildDirectory.file("reports/detekt/merge.xml"))
+        }
+    } else {
+        rootProject.tasks.named("reportMerge") as TaskProvider<ReportMergeTask>
+    }
+
     plugins.withType<io.gitlab.arturbosch.detekt.DetektPlugin> {
         tasks.withType<io.gitlab.arturbosch.detekt.Detekt> detekt@{
-            reports {
-                // Enable/Disable XML report (default: true)
-                xml.required.set(true)
-                xml.outputLocation.set(file("build/reports/detekt.xml"))
-                // Enable/Disable HTML report (default: true)
-                html.required.set(true)
-                html.outputLocation.set(file("build/reports/detekt.html"))
-                // Enable/Disable SARIF report (default: false)
-                sarif.required.set(true)
-                sarif.outputLocation.set(file("build/reports/detekt.sarif"))
-                // Enable/Disable MD report (default: false)
-                md.required.set(true)
-                md.outputLocation.set(file("build/reports/detekt.md"))
-                custom {
-                    // The simple class name of your custom report.
-                    reportId = "CustomJsonReport"
-                    outputLocation.set(file("build/reports/detekt.json"))
-                }
+            finalizedBy(reportMerge)
+
+            source = project.files("./").asFileTree
+
+            include("**/*.kt")
+            include("**/*.kts")
+            exclude("**/resources/**")
+            exclude("**/build/**")
+
+
+            reportMerge.configure {
+                input.from(this@detekt.xmlReportFile) // or .sarifReportFile
             }
         }
     }
