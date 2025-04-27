@@ -22,8 +22,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-data class test(val name: String)
-
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val pokemonRepository: IPokemonRepository,
