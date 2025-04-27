@@ -71,7 +71,7 @@ fun SearchScreen(
         modifier = Modifier
             .background(color = MaterialTheme.colorScheme.background)
             .padding(innerPadding),
-        columns = GridCells.Fixed(2),
+        columns = GridCells.Fixed(3),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
