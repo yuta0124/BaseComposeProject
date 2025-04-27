@@ -27,6 +27,11 @@ data class test(
     val isFavorite: Boolean,
 )
 
+data class Teszxc(
+    val valueL: String,
+)
+
+
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val pokemonRepository: IPokemonRepository,
