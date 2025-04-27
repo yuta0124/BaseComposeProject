@@ -34,10 +34,10 @@ jobs:
         uses: actions/checkout@v4
 
       # ランナー内にJDKをセットアップ
-      - name: set up JDK 17
+      - name: set up JDK 11
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '11'
           distribution: 'microsoft'
 
       - name: Setup Gradle
@@ -55,7 +55,7 @@ jobs:
       - name: Setup JDK 11
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '11'
           distribution: 'microsoft'
 
       - name: Setup Gradle
