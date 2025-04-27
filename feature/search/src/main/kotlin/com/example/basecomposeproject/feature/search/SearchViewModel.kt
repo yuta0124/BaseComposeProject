@@ -26,6 +26,10 @@ data class test(
     val value: String,
 )
 
+data class Test(
+    val value: String,
+)
+
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val pokemonRepository: IPokemonRepository,
