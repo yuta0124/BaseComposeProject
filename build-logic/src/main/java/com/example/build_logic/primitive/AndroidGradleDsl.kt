@@ -83,6 +83,7 @@ fun Project.setupDetekt(extension: DetektExtension) {
         autoCorrect = true
     }
 
+    // 各モジュールの静的解析結果を`reports/detekt/merge.xml`に統合する
     val reportMerge = if (!rootProject.tasks.names.contains("reportMerge")) {
         rootProject.tasks.register("reportMerge", ReportMergeTask::class) {
             output.set(rootProject.layout.buildDirectory.file("reports/detekt/merge.xml"))

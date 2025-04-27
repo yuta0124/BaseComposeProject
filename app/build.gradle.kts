@@ -38,8 +38,13 @@ android {
             )
         }
         create("prod") {
-            applicationId = ".prod"
+            applicationIdSuffix = ".prod"
             dimension = network
+            buildConfigField(
+                type = "String",
+                name = "SERVER_URL",
+                value = "\"https://pokeapi.co/api/v2/\"",
+            )
         }
     }
 
