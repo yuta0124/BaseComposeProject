@@ -28,6 +28,8 @@ import com.example.ui.component.molecules.CenterCircleIndicator
 import com.example.ui.component.organisms.PokemonItem
 import kotlinx.collections.immutable.PersistentList
 
+private const val CellCount = 3
+
 // TODO: pull to refresh
 @Composable
 fun SearchScreen(
@@ -71,7 +73,7 @@ fun SearchScreen(
         modifier = Modifier
             .background(color = MaterialTheme.colorScheme.background)
             .padding(innerPadding),
-        columns = GridCells.Fixed(2),
+        columns = GridCells.Fixed(CellCount),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
