@@ -43,10 +43,6 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      # 依存関係の出力
-      - name: Displays the Android dependencies of the project
-        run: ./gradlew androidDependencies
-
       # コンパイル
       - name: Run Compile
         run: ./gradlew assembleDebug
