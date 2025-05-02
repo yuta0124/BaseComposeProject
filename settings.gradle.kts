@@ -31,6 +31,7 @@ include(
     ":core:model",
     ":core:data",
     ":core:testing",
+    ":core:screenshot-testing",
     ":feature",
     ":feature:search",
     ":feature:favorites",
