@@ -1,11 +1,6 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - architecture_mvi
-    paths-ignore:
-      - README.md
   pull_request:
     branches:
       - architecture_mvi
