@@ -1,12 +1,15 @@
 name: compare-screenshot
 
 on:
-  push:
+  pull_request:
     branches:
       - architecture_mvi
-  pull_request:
+    paths:
+      - `feature/**`
+      - `core/design/**`
+        `core/ui/**`
 
-permissions: {}
+permissions: { }
 
 jobs:
   compare-screenshot-test:
