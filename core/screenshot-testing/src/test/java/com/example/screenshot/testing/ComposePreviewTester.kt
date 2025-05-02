@@ -1,4 +1,4 @@
-package com.example.screenshot_testing
+package com.example.screenshot.testing
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
