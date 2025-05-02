@@ -4,10 +4,8 @@ on:
   pull_request:
     branches:
       - architecture_mvi
-    paths:
-      - `feature/**`
-      - `core/design/**`
-        `core/ui/**`
+    paths-ignore:
+      - README.md
 
 permissions: { }
 
