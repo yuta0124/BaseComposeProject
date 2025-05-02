@@ -4,6 +4,8 @@ on:
   pull_request:
     branches:
       - architecture_mvi
+    paths-ignore:
+      - README.md
 
 permissions: { }
 
