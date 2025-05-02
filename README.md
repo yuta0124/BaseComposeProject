@@ -1,11 +1,13 @@
 ## Detekt
 
-チーム内で以下の作業をする必要がある
+~~チーム内で以下の作業をする必要がある~~
 
-1. projectのrootDirに移動
-2. `$ cp git-hooks/pre-commit .git/hooks`を実行
-3. `$ chmod +x .git/hooks/pre-commit`を実行
-4. AndroidStudioで「Settings → Plugins → Detekt」をインストールする 
+~~1. projectのrootDirに移動~~
+~~2. `$ cp git-hooks/pre-commit .git/hooks`を実行~~
+~~3. `$ chmod +x .git/hooks/pre-commit`を実行~~
+~~4. AndroidStudioで「Settings → Plugins → Detekt」をインストールする~~
+
+github actionsのciで自動化。ルール違反があればprでコメントがつく
 
 ## Compose Atoms Design
 粒度
@@ -45,14 +47,15 @@ xxxScreen#Content が該当
 xxxScreen#Screen が該当
 
 ## Architecture
-#### Circuit
-`Circuit`を利用して**MVI**アーキテクチャで実装している。
+**MVI**アーキテクチャで実装している。
+`XXScreen`単位で固有の`Intent`をViewModelの`onAction(intent: Intent)`に渡し、Viewの状態を更新する。
+
 
 ## Test
 #### screenshot
 screenshot testにはroborazziを使っている。
-`testging`モジュール内にある`com.github.takahirom.roborazzi`で、右クリックすると出てくる`Run Test in 'com.github...' with Converage`で実行する。
-
+~~`testging`モジュール内にある`com.github.takahirom.roborazzi`で、右クリックすると出てくる`Run Test in 'com.github...' with Converage`で実行する。~~
+github actionsのciで自動化。変更されたUIの差分表示がコメントでつく。
 
 ##### 実装中に思った疑問点
 - 複数の画面から共有したいPresenterをどう実装するか？
