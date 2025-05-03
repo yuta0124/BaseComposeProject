@@ -1,4 +1,4 @@
-package com.example.testing
+package com.example.screenshot.testing
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -13,7 +13,7 @@ import sergio.sastre.composable.preview.scanner.android.screenshotid.AndroidPrev
 import sergio.sastre.composable.preview.scanner.core.preview.ComposablePreview
 
 @OptIn(ExperimentalRoborazziApi::class)
-class BaseComposePreviewTester : ComposePreviewTester<AndroidPreviewInfo> {
+class ComposePreviewTester : ComposePreviewTester<AndroidPreviewInfo> {
     // 利用するJunit4のテストルールを作成
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
