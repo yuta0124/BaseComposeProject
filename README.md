@@ -1,11 +1,13 @@
 ## Detekt
 
-チーム内で以下の作業をする必要がある
+~~チーム内で以下の作業をする必要がある~~
 
-1. projectのrootDirに移動
-2. `$ cp git-hooks/pre-commit .git/hooks`を実行
-3. `$ chmod +x .git/hooks/pre-commit`を実行
-4. AndroidStudioで「Settings → Plugins → Detekt」をインストールする 
+~~1. projectのrootDirに移動~~
+~~2. `$ cp git-hooks/pre-commit .git/hooks`を実行~~
+~~3. `$ chmod +x .git/hooks/pre-commit`を実行~~
+~~4. AndroidStudioで「Settings → Plugins → Detekt」をインストールする~~
+
+github actionsで自動化。ルール違反があればprにコメントがつく
 
 ## Compose Atoms Design
 粒度
@@ -22,9 +24,6 @@
 
 個別のモデルには依存しないようにする
 
-
-
-
 **organisms**：ある特定のまとまりのあるUIパーツを定義する。中身が入った時に単一でUI的に意味があるものにする
 
 文脈の適用はここでする
@@ -38,28 +37,22 @@
 
 xxxScreen#Content が該当
 
-
 **pages**：ViewModelを取得してtemplatesのcomposableに実際の値を入れる。副作用系のUIの処理もここで行う。Previewは不要
-
 
 xxxScreen#Screen が該当
 
 ## Architecture
-#### Circuit
-`Circuit`を利用して**MVI**アーキテクチャで実装している。
+MVI
+`XXXScreen`単位で`Intent`を保持、ViewModelの`onAction(intent: Intent)`関数にてintentからactionを実行し、`UiState`を更新し、Viewが再描画される。
 
 ## Test
 #### screenshot
 screenshot testにはroborazziを使っている。
-`testging`モジュール内にある`com.github.takahirom.roborazzi`で、右クリックすると出てくる`Run Test in 'com.github...' with Converage`で実行する。
+~~`testging`モジュール内にある`com.github.takahirom.roborazzi`で、右クリックすると出てくる`Run Test in 'com.github...' with Converage`で実行する。~~
+github actionsで自動化。差分があればprにコメントがつく。
 
+## CI
+github actionsでCIを構築
+`build debug`、`detekt(静的解析ツール)`のワークフローが通らない場合、PRのマージはできない設定
+その他、スクリーンショットテストを自動化、これは必須ではない
 
-##### 実装中に思った疑問点
-- 複数の画面から共有したいPresenterをどう実装するか？
-- ボトムナビゲーションとNavigatorの併用
-
-実際の案件でMVIパターンを採用したい場合、特にライブラリ使わずにViewModelを使った簡単なMVIが良いかも
-  参考:
-  - https://github.com/myofficework000/JetMVI-Template/blob/master/app/src/main/java/com/abhishek/pathak/kotlin/android/githubcompose/ui/feature/repos/ReposViewModel.kt<br>
-  - https://speakerdeck.com/zacsweers/modern-compose-architecture-with-circuit?slide=107
-  - https://chrisbanes.me/posts/retaining-beyond-viewmodels/
