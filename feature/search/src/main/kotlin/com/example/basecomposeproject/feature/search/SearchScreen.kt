@@ -28,7 +28,7 @@ import com.example.ui.component.molecules.CenterCircleIndicator
 import com.example.ui.component.organisms.PokemonItem
 import kotlinx.collections.immutable.PersistentList
 
-private const val CELL_COUNT = 2
+private const val CELL_COUNT = 3
 
 // TODO: pull to refresh
 @Composable
