@@ -20,3 +20,12 @@ jobs:
 
       - name: echo description
         run: echo "CI is considered successful because the Readme file was changed"
+
+  detekt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: echo description
+        run: echo "CI is considered successful because the Readme file was changed"
