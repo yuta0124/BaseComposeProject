@@ -1,6 +1,7 @@
 name: store-screenshot
 
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - architecture_mvi
