@@ -7,6 +7,11 @@ on:
       - architecture_mvi
     paths-ignore:
       - README.md
+  push:
+    branches:
+      - architecture_mvi
+    paths-ignore:
+      - README.md
 
 permissions: { }
 
