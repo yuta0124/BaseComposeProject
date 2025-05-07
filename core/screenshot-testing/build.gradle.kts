@@ -43,7 +43,7 @@ dependencies {
  * }
  */
 roborazzi {
-    outputDir.set(rootProject.file("screenshots"))
+    outputDir.set(rootProject.file("screenshots/build/outputs/roborazzi"))
 
     @OptIn(ExperimentalRoborazziApi::class)
     generateComposePreviewRobolectricTests {
