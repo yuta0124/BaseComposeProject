@@ -38,3 +38,4 @@ include(
     ":feature:utils",
     ":ui-catalog",
 )
+include(":core:testing")
