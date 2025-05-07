@@ -1,12 +1,6 @@
 name: CI
-# TODO: detektのエラー内容がPRのコメントで表示されるか確認
-# TODO: CIが失敗した時にマージできないようになっているか確認
+
 on:
-  push:
-    branches:
-      - architecture_mvi
-    paths-ignore:
-      - README.md
   pull_request:
     branches:
       - architecture_mvi
@@ -27,8 +21,8 @@ jobs:
       - name: set up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
-          distribution: 'microsoft'
+          java-version: 17
+          distribution: microsoft
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
@@ -39,13 +33,14 @@ jobs:
   detekt:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
-          distribution: 'microsoft'
+          java-version: 17
+          distribution: microsoft
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
