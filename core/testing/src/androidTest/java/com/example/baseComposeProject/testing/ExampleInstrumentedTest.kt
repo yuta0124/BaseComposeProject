@@ -1,4 +1,4 @@
-package com.example.testing
+package com.example.baseComposeProject.testing
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
