@@ -51,6 +51,8 @@ xxxScreen#Screen が該当
 **ViewModelと同等のライフサイクル**をComposition内で扱える様にしている。<br>
 **Configuration change**などを超えて状態を保持する**State Holder**として、ViewModelは必須であり、**Navigation Compose**においては**back stack entry**へ状態を関連付ける上でも必須と言える。
 
+公式が`retain API`を出した。rinと同じように、ComposableでViewModelと同等の生存期間で値を保持できるため、こっちを使っても良さそう。
+
 [MR](https://github.com/yuta0124/BaseComposeProject/pull/18)
 
 参考:
