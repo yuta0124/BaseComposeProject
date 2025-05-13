@@ -1,43 +1,21 @@
 plugins {
-    alias(libs.plugins.androidGradleLibraryPlugin)
-    alias(libs.plugins.kotlinGradlePlugin)
+    id("baseComposeProject.primitive.android")
+    id("baseComposeProject.primitive.android.kotlin")
+    id("baseComposeProject.primitive.android.compose")
+    id("baseComposeProject.primitive.android.hilt")
+    id("baseComposeProject.primitive.detekt")
 }
 
-android {
-    namespace = "com.example.baseComposeProject.testing"
-    compileSdk = 35
-
-    defaultConfig {
-        minSdk = 24
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-}
+android.namespace = "com.example.basecomposeproject.core.testing"
 
 dependencies {
-
     implementation(libs.androidxCoreKtx)
     implementation(libs.androidxAppcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    testImplementation(libs.kotlinTest)
+    testImplementation(libs.kotlinxCoroutinesTest)
     androidTestImplementation(libs.androidxJunit)
     androidTestImplementation(libs.androidxEspressoCore)
 }
