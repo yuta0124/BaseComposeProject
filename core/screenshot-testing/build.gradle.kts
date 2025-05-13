@@ -9,7 +9,7 @@ plugins {
     id("baseComposeProject.primitive.screenshotTestPlugin")
 }
 
-android.namespace = "com.example.basecomposeproject.core.testing"
+android.namespace = "com.example.basecomposeproject.core.screenshottesting"
 
 dependencies {
     implementation(projects.core.model)
